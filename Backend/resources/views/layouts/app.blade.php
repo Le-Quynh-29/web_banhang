@@ -19,12 +19,16 @@
 {{--    </main>--}}
 {{--    @include('layouts.shared.footer')--}}
 {{--</div>--}}
-<div class="sidebar sidebar-dark sidebar-fixed c-" id="sidebar">
+<div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
     @include('layouts.shared.navbar')
 </div>
 <div class="wrapper d-flex flex-column min-vh-100 bg-light">
     @include('layouts.shared.header')
-    @yield('content')
+    <div class="body flex-grow-1 px-3">
+        <div class="container-lg">
+            @yield('content')
+        </div>
+    </div>
     @include('layouts.shared.footer')
 </div>
 

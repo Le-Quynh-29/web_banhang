@@ -1,5 +1,9 @@
 <div class="sidebar-brand d-none d-md-flex">
-{{--    <svg class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">--}}
+    <img src="" class="sidebar-brand-full navbar-image" alt="QUEEN SHOP"
+         height="46">
+    <img src="" class="sidebar-brand-narrow navbar-image" alt="QUEEN SHOP"
+         height="46">
+    {{--    <svg class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">--}}
 {{--        <use xlink:href="assets/brand/coreui.svg#full"></use>--}}
 {{--    </svg>--}}
 {{--    <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">--}}

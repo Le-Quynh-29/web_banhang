@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link id="favicon" rel="shortcut icon" type="image/png" href=""/>
+    <title>QUEEN SHOP</title>
+    @vite('resources/sass/app.scss')
+    @yield('style')
+</head>
+<body class="c-style-app">
+{{--@include('layouts.shared.header')--}}
+{{--<div class="c-body c-body-content">--}}
+{{--    <main class="c-main">--}}
+{{--        @yield('content')--}}
+{{--    </main>--}}
+{{--    @include('layouts.shared.footer')--}}
+{{--</div>--}}
+<div class="sidebar sidebar-dark sidebar-fixed c-" id="sidebar">
+    @include('layouts.shared.navbar')
+</div>
+<div class="wrapper d-flex flex-column min-vh-100 bg-light">
+    @include('layouts.shared.header')
+    @yield('content')
+    @include('layouts.shared.footer')
+</div>
+
+<script>
+    var _appUrl = '{!! url('/') !!}';
+    var _token = '{!! csrf_token() !!}';
+</script>
+@vite('resources/js/app.js')
+{{--@vite('resources/js/navbar.js')--}}
+@yield('javascript')
+</body>
+</html>

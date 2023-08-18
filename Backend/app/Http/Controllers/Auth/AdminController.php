@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function viewLogin()
     {
         $yearCurrent = Carbon::now()->format('Y');
-        return response()->view('backend.auth.login', compact('yearCurrent'));
+        return response()->view('auth.login', compact('yearCurrent'));
     }
 
     /**
@@ -79,6 +79,6 @@ class AdminController extends Controller
             toastr()->error('Tài khoản đang đăng nhập ở nơi khác.', 'Lỗi!');
         }
 
-        return redirect()->route('admin.view.login');
+        return redirect()->route('login');
     }
 }

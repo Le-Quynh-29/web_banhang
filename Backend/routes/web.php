@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['middleware' => ['guest']], function () {
     Route::prefix('admin')->group(function () {
-        Route::get('/login', [\App\Http\Controllers\Auth\AdminController::class, 'viewLogin'])->name('admin.view.login');
+        Route::get('/login', [\App\Http\Controllers\Auth\AdminController::class, 'viewLogin'])->name('login');
         Route::post('/login', [\App\Http\Controllers\Auth\AdminController::class, 'login'])->name('admin.login');
     });
 });
 
-Route::group(['middleware' => ['admin.auth']], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::prefix('admin')->group(function () {
-        Route::get('/logout', [\App\Http\Controllers\Auth\AdminController::class, 'logout'])->name('admin.logout');
-        Route::get('/', [\App\Http\Controllers\Backend\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/logout', [\App\Http\Controllers\Auth\AdminController::class, 'logout'])->name('logout');
+        Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     });
 });

@@ -1,3 +1,5 @@
 import './bootstrap';
-import '~js-url/url.min.js';
+import './coreui';
 import '~toastr/build/toastr.min.js';
+import './laravel-sort';
+import './shop';

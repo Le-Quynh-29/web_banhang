@@ -20,9 +20,16 @@
                 <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content"
                      style="height: 100%;">
                     <div class="simplebar-content" style="padding: 0px;">
-                        <li class="nav-item"><a class="nav-link active" href="index.html" style="padding: 0.8445rem 0.7rem;">
+                        <li class="nav-item"><a class="nav-link active" href="{{route('dashboard')}}" style="padding: 0.8445rem 0.7rem;">
                                 <i class="nav-icon fas fa-tachometer-alt-average"></i>
                                 Dashboard</a></li>
+                        <li class="nav-group" aria-expanded="true" ><a class="nav-link nav-group-toggle" >
+                            <i class="nav-icon fas fa-user"></i> User</a>
+                            <ul class="nav-group-items" style="height: auto;">
+                            <li class="nav-item"><a class="nav-link" href="{{route('user.index')}}"><span class="nav-icon"></span>Danh sách Users</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{route('user.create')}}"><span class="nav-icon"></span> Thêm User</a></li>
+                            </ul>
+                        </li>
                     </div>
                 </div>
             </div>

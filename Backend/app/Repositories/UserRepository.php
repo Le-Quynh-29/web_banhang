@@ -23,6 +23,7 @@ class UserRepository extends AbstractRepository
         $searchBy     = $request->get('search_by');
         $searchText   = $request->get('search_text');
         $status       = $request->get('status');
+        $role         = $request->get('role');
         $data         = $this->model::select('*')->distinct();
         if (sizeof($with) > 0) {
             $withParams = '';
@@ -39,10 +40,15 @@ class UserRepository extends AbstractRepository
             $data = $data->orderBy($order, $sortBy);
         }
 
+        if (!empty($role)) {
+            if (in_array((int)$role,[$this->model::ROLE_ADMIN,$this->model::ROLE_CUSTOMER])) {
+                $data = $data->where('role', '=', $role);
+            } 
+        }
+
         if (!empty($searchBy)) {
-            if (in_array($status,['active','none_active'])) {
-                $value = $searchBy == 'active' ? 0 : 1;
-                $data = $data->where('active', '<>', $value)->where($searchBy, 'LIKE', "%$searchText%");
+            if (in_array((int)$status,[$this->model::NO_ACTIVE,$this->model::ACTIVE])) {
+                $data = $data->where('active', '<>', $status)->where($searchBy, 'LIKE', "%$searchText%");
             } else {
                 $data = $data->where($searchBy, 'LIKE', "%$searchText%");
             }

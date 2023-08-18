@@ -1059,3 +1059,131 @@ select {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+.btn {
+    &-primary{
+        background-color: #007bff !important;
+        border-color: #007bff !important;
+    }
+    &-primary:hover{
+        background-color: #0069d9 !important;
+    }
+}
+
+.badge-success {
+    color: #fff;
+    background-color: #28a745;
+    padding-bottom: 8px;
+}
+
+.text{
+    &-center{
+        text-align: center !important;
+    }
+    &-end{
+        text-align: end !important;
+    }
+    &-start{
+        text-align: start !important;
+    }
+    &-justify{
+        text-align: justify !important;
+    }
+    &-left{
+        text-align: left !important;
+    }
+    &-right{
+        text-align: right !important;
+    }
+}
+
+.table {
+    color: #000 !important;
+
+    th,
+    td {
+        vertical-align: middle !important;
+        a{
+            color: #007bff !important;
+        }
+
+        p,
+        ul {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    thead {
+        tr {
+            background-color: #D0E0F5 !important;
+        }
+    }
+
+    tbody {
+        tr:nth-of-type(odd) {
+            background-color: #EFF6FF !important;
+        }
+
+        tr:last-child {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+        }
+    }
+}
+
+.d {
+    &-flex{
+        display: flex !important;
+    }
+    &-block{
+        display: block !important;
+    }
+    &-none{
+        display: none !important;
+    }
+    &-inline-block{
+        display: inline-block !important;
+    }
+    &-inline-flex{
+        display: inline-flex !important;
+    }
+    &-grid{
+        display: grid !important;
+    }
+}
+.jt-cont{
+    &-sp-bw{
+        justify-content: space-evenly;
+    }
+    &-sp-ct{
+        justify-content: center;
+    }
+    &-sp-l{
+        justify-content: left;
+    }
+    &-sp-r{
+        justify-content: right;
+    }
+    &-sp-fle{
+        justify-content: flex-end;
+    }
+    &-sp-flst{
+        justify-content: flex-start;
+    }
+}
+
+.cl{
+    &-red {
+        color: #FF0808 !important;
+    }
+    &-blue {
+        color: #007bff !important;
+    }
+}
+.fl{
+    &-right{
+        float: right !important;
+    }
+    &-left{
+        float: right !important;
+    }
+}

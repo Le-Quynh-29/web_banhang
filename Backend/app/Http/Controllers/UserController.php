@@ -18,7 +18,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+    //    dd($request->all());
         $users = $this->userRepository->listUser($request, false);
+        // dd( $users);
         return view('user/index', compact('users'));
     }
 

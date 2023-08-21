@@ -23,6 +23,7 @@ return new class extends Migration
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->unsignedBigInteger('user_id');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@
                 <div class="col-12">
                     <span class="badge badge-success">Tìm kiếm theo</span>
                 </div>
-         
+
                 <div class="col-12">
                     <select class="form-select" name="search_by" id="search_by">
                       <option selected value="" >-- Tìm kiếm theo --</option>
@@ -44,7 +44,7 @@
                         </span>
                     </div>
                 </div>
-              </form>   
+              </form>
               <div class="row mb-3">
                 <div class="col-12">
                     <div class="float-left">
@@ -78,7 +78,7 @@
                         <th scope="col" class="text-center">
                             <a data-field="users.created_at" class="laravel-sort">Ngày tạo</a>
                         </th>
-                        <th scope="col" class="text-center"> 
+                        <th scope="col" class="text-center">
                         </th>
                     </tr>
                 </thead>
@@ -113,7 +113,7 @@
                                 <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Xóa">
                                     <i class="fas fa-trash fa-lg cl-red"></i>
                                 </a>
-                         
+
                             </div>
                             @endif
                         </td>

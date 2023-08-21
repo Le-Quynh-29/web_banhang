@@ -37,7 +37,7 @@
     var _token = '{!! csrf_token() !!}';
 </script>
 @vite('resources/js/app.js')
-{{--@vite('resources/js/navbar.js')--}}
+@vite('resources/js/navbar.js')
 @yield('javascript')
 </body>
 </html>

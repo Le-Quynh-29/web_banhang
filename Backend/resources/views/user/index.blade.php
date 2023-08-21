@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('header')
     <div class="container-fluid header-menu">
         <nav aria-label="breadcrumb">
@@ -10,9 +9,7 @@
         </nav>
     </div>
 @endsection
-
 @section('content')
-
     <div class="card mb-4">
         <div class="card-header">
             <h4> Quản lý người dùng</h4>
@@ -26,7 +23,6 @@
                 <div class="col-12">
                     <span class="badge badge-success">Tìm kiếm theo</span>
                 </div>
-
                 <div class="col-12">
                     <select class="form-select" name="search_by" id="search_by">
                         <option value="username" <?= request()->search_by == 'username' ? 'selected' : '' ?>>Tên tài khoản</option>
@@ -67,74 +63,74 @@
             </div>
             <table class="table table-responsive-sm">
                 <thead>
-                <tr>
-                    <th scope="col" class="text-center">
-                        <a data-field="users.id" class="laravel-sort">ID</a>
-                    </th>
-                    <th scope="col" class="text-center">
-                        <a data-field="users.fullname" class="laravel-sort">Họ và Tên</a>
-                    </th>
-                    <th scope="col" class="text-center">
-                        <a data-field="users.email" class="laravel-sort">Email</a>
-                    </th>
-                    <th scope="col" class="text-center">
-                        <a data-field="users.phone_number" class="laravel-sort">Số điện thoại</a>
-                    </th>
-                    <th scope="col" class="text-center">
-                        <a data-field="users.role" class="laravel-sort">Chức vụ</a>
-                    </th>
-                    <th scope="col" class="text-center">
-                        <a data-field="users.active" class="laravel-sort">Trạng thái</a>
-                    </th>
-                    <th scope="col" class="text-center">
-                        <a data-field="users.created_at" class="laravel-sort">Ngày tạo</a>
-                    </th>
-                    <th scope="col" class="text-center">
-                    </th>
-                </tr>
+                    <tr>
+                        <th scope="col" class="text-center">
+                            <a data-field="users.id" class="laravel-sort">ID</a>
+                        </th>
+                        <th scope="col" class="text-center">
+                            <a data-field="users.fullname" class="laravel-sort">Họ và Tên</a>
+                        </th>
+                        <th scope="col" class="text-center">
+                            <a data-field="users.email" class="laravel-sort">Email</a>
+                        </th>
+                        <th scope="col" class="text-center">
+                            <a data-field="users.phone_number" class="laravel-sort">Số điện thoại</a>
+                        </th>
+                        <th scope="col" class="text-center">
+                            <a data-field="users.role" class="laravel-sort">Chức vụ</a>
+                        </th>
+                        <th scope="col" class="text-center">
+                            <a data-field="users.active" class="laravel-sort">Trạng thái</a>
+                        </th>
+                        <th scope="col" class="text-center">
+                            <a data-field="users.created_at" class="laravel-sort">Ngày tạo</a>
+                        </th>
+                        <th scope="col" class="text-center">
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                @if(isset($users))
-                    @foreach($users as $user)
-                        <tr>
-                            <td scope="row" class="text-center widtd-50">
-                                <a href="{{route('user.show',$user->id)}}" data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Chi tiết">{!!$user->id!!}</a>
-                            </th>
-                            <td class="text-center text-break"><a href="{{route('user.show',$user->id)}}">{!!$user->fullname!!}</a></td>
-                            <td class="text-center text-break">{!!$user->email!!}</td>
-                            <td class="text-center text-break">{!!$user->phone_number!!}</td>
-                            <td class="text-center text-break">{!!$user->convertRole($user->role)!!}</td>
-                            <td class="text-center text-break">{!!$user->convertStatus($user->active)!!}</td>
-                            <td class="text-center text-break">{!!$user->formatDate($user->updated_at)!!}</td>
-                            <td class="width-80">
-                                @if($user->role == \App\Models\User::ROLE_ADMIN)
-                                    <div class="d-flex jt-cont-sp-bw" >
-                                        <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Cập nhật" href="{{route('user.edit',$user->id)}}">
-                                            <i class="p-r fas fa-edit fa-lg"></i>
-                                        </a>
-                                        @if($user->active == 1)
-                                            <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Đã kích hoạt" id="user-unlock">
-                                                <i class="icon-lock fas fa-user-unlock fa-lg mr-3 cl-green"></i>
+                    @if(isset($users))
+                        @foreach($users as $user)
+                            <tr>
+                                <td scope="row" class="text-center">
+                                    <a href="{{route('user.show',$user->id)}}" data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Chi tiết">{!!$user->id!!}</a>
+                                </td>
+                                <td class="text-center text-break"><a href="{{route('user.show',$user->id)}}">{!!$user->fullname!!}</a></td>
+                                <td class="text-center text-break">{!!$user->email!!}</td>
+                                <td class="text-center text-break">{!!$user->phone_number!!}</td>
+                                <td class="text-center text-break">{!!$user->convertRole($user->role)!!}</td>
+                                <td class="text-center text-break">{!!$user->convertStatus($user->active)!!}</td>
+                                <td class="text-center text-break">{!!$user->formatDate($user->updated_at)!!}</td>
+                                <td class="">
+                                    @if($user->role == \App\Models\User::ROLE_ADMIN)
+                                        <div class="d-flex jt-cont-sp-bw" >
+                                            <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Cập nhật" href="{{route('user.edit',$user->id)}}">
+                                                <i class="p-r fas fa-edit fa-lg"></i>
                                             </a>
-                                        @elseif($user->active == 0)
-                                            <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Vô hiệu hóa" id="user-lock">
-                                                <i class="icon-user-lock fas fa-user-lock fa-lg mr-3 cl-red"></i>
+                                            @if($user->active == 1)
+                                                <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Đã kích hoạt" id="user-unlock">
+                                                    <i class="icon-lock fas fa-user-unlock fa-lg mr-3 cl-green"></i>
+                                                </a>
+                                            @elseif($user->active == 0)
+                                                <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Vô hiệu hóa" id="user-lock">
+                                                    <i class="icon-user-lock fas fa-user-lock fa-lg mr-3 cl-red"></i>
+                                                </a>
+                                            @endif
+                                            <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Xóa">
+                                                <i class="fas fa-trash fa-lg cl-red"></i>
                                             </a>
-                                        @endif
-                                        <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Xóa">
-                                            <i class="fas fa-trash fa-lg cl-red"></i>
-                                        </a>
 
-                                    </div>
-                                @endif
-                            </td>
+                                        </div>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td  colspan="8">Không có dữ liệu</td>
                         </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td  colspan="8">Không có dữ liệu</td>
-                    </tr>
-                @endif
+                    @endif
                 </tbody>
             </table>
             <div class="pagination">
@@ -142,7 +138,7 @@
             </div>
         </div>
     </div>
-    @include('modal.confirm')
+@include('modal.confirm')
 @endsection
 @section('javascript')
     <script>

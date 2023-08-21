@@ -1,3 +1,4 @@
+import * as FilePond from 'filepond';
 (function ($) {
     'use strict';
 
@@ -22,7 +23,50 @@
             });
         },
         init: function () {
+            this.initFilePond()
         },
+        initFilePond: function () {
+            const inputElement = document.querySelector('input[type="file"]');
+            const filePondOptions = {
+                server: {
+                    method: 'POST', 
+                    process: {
+                        url: _userUploadImageUrl,
+                        method: 'POST', 
+                        withCredentials: true,
+                        headers: {
+                            'X-CSRF-TOKEN': this.token 
+                        }
+                    },
+                    revert: {
+                        url: _userDeleteImageUrl, 
+                        method: 'DELETE', 
+                        withCredentials: true,
+                        headers: {
+                            'X-CSRF-TOKEN': this.token 
+                        }
+                    },
+                },
+                labelIdle: 'Kéo và thả ảnh hoặc <span class="filepond--label-action">Bấm vào đây</span>',
+                acceptedFileTypes:['image/*'],
+                maxFileSize: '1MB',
+                allowMultiple: false,
+                serverRetry: 3,
+                instantUpload:true,
+                dropValidation: true, 
+                onaddfile: (error, file) => {
+                    if (!error) {
+                        console.log('Đã thêm tệp:', file);
+                    } else {
+                        console.log(error);
+                    }
+                },
+                onremovefile: (error, file) => {
+                    console.log('Đã xóa tệp:', file);
+                },
+            };
+            FilePond.create(inputElement, filePondOptions);
+        }
     };
 
     /* Execute main function */

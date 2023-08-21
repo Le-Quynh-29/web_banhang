@@ -20,5 +20,9 @@ Route::group(['middleware' => ['guest']], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/logout', [\App\Http\Controllers\Auth\AdminController::class, 'logout'])->name('logout');
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::prefix('user')->group(function () {
+        Route::post('/upload-image', [\App\Http\Controllers\UserController::class, 'uploadImage'])->name('user.upload.image');
+        Route::delete('/delete-image', [\App\Http\Controllers\UserController::class, 'deleteImage'])->name('user.delete.image');
+    });
     Route::resource('user',\App\Http\Controllers\UserController::class);
 });

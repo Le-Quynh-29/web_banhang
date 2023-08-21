@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -35,7 +37,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         //
     }
@@ -70,5 +72,27 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    /**
+     * Upload avatar image
+     */
+    public function uploadImage(Request $request)
+    {
+            if ($request->hasFile('image')) {
+                $imageFile = $request->file('image');
+                $pathInfo = uploadFileHepler($imageFile, Auth::id());
+                if ($pathInfo) {
+                    return response()->json(['message' => 'Tệp đã được tải lên và lưu thành công'.$pathInfo],200);
+                }
+            }
+    
+    }
+    /**
+     * Upload avatar image
+     */
+    public function deleteImage(Request $request)
+    {
+           dd($request->all());
+    
     }
 }

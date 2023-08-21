@@ -8,6 +8,7 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/sass/user.scss',
+                'resources/sass/file-pond.scss',
                 'resources/js/app.js',
                 'resources/js/jquery-validation.js',
                 'resources/js/login.js',

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('style')
     @vite('resources/sass/user.scss')
+    @vite('resources/sass/file-pond.scss')
 @endsection
 @section('header')
     <div class="container-fluid header-menu">
@@ -158,7 +159,10 @@
 @section('javascript')
     <script>
         var _userUrl = {!! json_encode(route('user.index')) !!};
+        var _userUploadImageUrl = {!! json_encode(route('user.upload.image')) !!};
+        var _userDeleteImageUrl = {!! json_encode(route('user.delete.image')) !!};
         window.localStorage.setItem('menu-selected', 'user');
     </script>
+    @vite('resources/js/file-pond.js')
     @vite('resources/js/users/userCreate.js')
 @endsection

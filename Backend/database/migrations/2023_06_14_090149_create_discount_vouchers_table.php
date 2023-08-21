@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->tinyInteger('type');
             $table->longText('description')->nullable();
+            $table->integer('discount');
             $table->integer('quantity');
-            $table->integer('quantity_used');
+            $table->integer('quantity_used')->default(0);
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->unsignedBigInteger('user_id');

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone_number', 20);
             $table->string('address');
             $table->integer('total');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->dateTime('transaction_time');
             $table->dateTime('delivery_time')->nullable();
             $table->dateTime('received_time')->nullable();
@@ -32,6 +32,8 @@ return new class extends Migration
             $table->string('bank')->nullable();
             $table->string('transfer_note')->nullable();
             $table->unsignedBigInteger('voucher_id')->nullable();
+            $table->tinyInteger('voucher_type')->nullable();
+            $table->integer('discount_voucher')->nullable();
             $table->timestamps();
         });
     }

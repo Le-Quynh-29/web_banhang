@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger('active')->default(1);
             $table->string('password');
             $table->string('password_raw');
+            $table->text('image');
             $table->rememberToken();
             $table->timestamps();
         });

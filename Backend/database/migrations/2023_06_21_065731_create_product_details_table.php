@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('size', 50)->nullable();
             $table->integer('quantity');
             $table->integer('price');
+            $table->text('image');
         });
     }
 

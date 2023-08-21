@@ -21,12 +21,12 @@
                                 </div>
                                 <div class="form-group mt-3 mb-3 pl-5 pr-5">
                                     <label class="form-label font-weight-bold" for="email">Email</label>
-                                    <input id="email" class="form-control font-weight-bold" type="text" placeholder="Email"
+                                    <input id="email" class="form-control" type="text" placeholder="Email"
                                            name="email"  value="" minlength="8" maxlength="20" autofocus>
                                 </div>
                                 <div class="form-group mb-3 pl-5 pr-5">
                                     <label class="form-label font-weight-bold" for="password">Mật khẩu</label>
-                                    <input id="password" class="form-control font-weight-bold" type="password" placeholder="Mật khẩu"
+                                    <input id="password" class="form-control" type="password" placeholder="Mật khẩu"
                                            name="password" minlength="8" maxlength="20" autocomplete>
                                 </div>
                                 <div class="input-group auth-action">

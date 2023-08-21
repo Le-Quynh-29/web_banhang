@@ -29,12 +29,12 @@
                     <div class="input-group input-option">
                         <input type="text" name="search_text" id="search-text" value="<?= request()->search_text?>" class="form-control <?= (request()->active == null && request()->role == null )  ? 'active' : '' ?>" placeholder="Nhập tìm kiếm...">
                         <select class="form-select <?= (request()->active != null && (request()->role == null && request()->search_text == null)) ? 'active' : '' ?>" id="active" name="active">
-                            <option value="0" <?= request()->active == '0' ? 'selected' : '' ?>>Đã kích hoạt</option>
-                            <option value="1" <?= request()->active == '1' ? 'selected' : '' ?>>Vô hiệu hóa</option>
+                            <option value="{{\App\Models\User::NO_ACTIVE}}" <?= request()->active == \App\Models\User::NO_ACTIVE ? 'selected' : '' ?>>Đã kích hoạt</option>
+                            <option value="{{\App\Models\User::ACTIVE}}" <?= request()->active == \App\Models\User::ACTIVE ? 'selected' : '' ?>>Vô hiệu hóa</option>
                         </select>
                         <select class="form-select <?= (request()->role != null && (request()->active == null && request()->search_text == null)) ? 'active' : '' ?>" id="role" name="role">
-                            <option value="1" <?= request()->role == '1' ? 'selected' : '' ?>>Quản trị viên</option>
-                            <option value="2" <?= request()->role == '2' ? 'selected' : '' ?>>Người dùng</option>
+                            <option value="{{\App\Models\User::ROLE_ADMIN}}" <?= request()->role == \App\Models\User::ROLE_ADMIN ? 'selected' : '' ?>>Quản trị viên</option>
+                            <option value="{{\App\Models\User::ROLE_CUSTOMER}}" <?= request()->role == \App\Models\User::ROLE_CUSTOMER ? 'selected' : '' ?>>Người dùng</option>
                         </select>
                         <span class="input-group-append" id="search">
                             <button class="btn btn-search">

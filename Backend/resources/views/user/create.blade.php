@@ -20,14 +20,46 @@
                     <div class="tab-content">
                         <div class="tab-pane active row-cols-lg-auto g-3 align-items-center mb-4 pt-4">
                             <div class="form-group row mb-4">
-                                <label class="col-xlg-2 col-sm-2 col-form-label" for="">Tên <em class="required">(*)</em></label>
+                                <label class="col-xlg-2 col-sm-2 col-form-label" for="">Tên đăng nhập <em class="required">(*)</em></label>
                                 <div class="col-xlg-10 col-sm-10">  
-                                    <input class="form-control  @error('name') is-invalid @enderror" name="name" type="text" id="name" placeholder="Nhập tên chiến dịch tấn công mạng" value="{!! old('name') !!}">
-                                    @error('name')
+                                    <input class="form-control  @error('username') is-invalid @enderror" name="username" type="text" id="username" placeholder="Nhập tên đăng nhập" value="{!! old('username') !!}">
+                                    @error('username')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                    <div id="error-name"></div>
-
+                                    {{-- <div id="error-username"></div> --}}
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-xlg-2 col-sm-2 col-form-label" for="">Họ và tên<em class="required">(*)</em></label>
+                                <div class="col-xlg-10 col-sm-10">  
+                                    <input class="form-control  @error('fullname') is-invalid @enderror" name="fullname" type="text" id="fullname" placeholder="Nhập tên người dùng" value="{!! old('fullname') !!}">
+                                    @error('fullname')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    {{-- <div id="error-username"></div> --}}
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-xlg-2 col-sm-2 col-form-label" for="">Email <em class="required">(*)</em></label>
+                                <div class="col-xlg-10 col-sm-10">  
+                                    <input class="form-control  @error('email') is-invalid @enderror" name="email" type="text" id="email" placeholder="Nhập Email người dùng" value="{!! old('email') !!}">
+                                    @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    {{-- <div id="error-username"></div> --}}
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-xlg-2 col-sm-2 col-form-label" for="">Giới tính <em class="required">(*)</em></label>
+                                <div class="col-xlg-10 col-sm-10">  
+                                    <select name="" class="form-control @error('gender') is-invalid @enderror" id="gender">
+                                        <option value="1" <?= request()->role == '1' ? 'selected' : '' ?>>Quản trị viên</option>
+                                        <option value="2" <?= request()->role == '2' ? 'selected' : '' ?>>Người dùng</option>
+                                    </select>
+                                    @error('gender')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    {{-- <div id="error-username"></div> --}}
                                 </div>
                             </div>
                             <div>

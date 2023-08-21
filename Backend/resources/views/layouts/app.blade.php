@@ -12,13 +12,6 @@
     @yield('style')
 </head>
 <body class="c-style-app">
-{{--@include('layouts.shared.header')--}}
-{{--<div class="c-body c-body-content">--}}
-{{--    <main class="c-main">--}}
-{{--        @yield('content')--}}
-{{--    </main>--}}
-{{--    @include('layouts.shared.footer')--}}
-{{--</div>--}}
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
     @include('layouts.shared.navbar')
 </div>
@@ -37,7 +30,7 @@
     var _token = '{!! csrf_token() !!}';
 </script>
 @vite('resources/js/app.js')
-{{--@vite('resources/js/navbar.js')--}}
+@vite('resources/js/navbar.js')
 @yield('javascript')
 </body>
 </html>

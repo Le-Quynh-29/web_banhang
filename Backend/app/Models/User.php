@@ -21,7 +21,8 @@ class User extends Authenticatable
 
     //role
     public const ROLE_ADMIN = 1;
-    public const ROLE_CUSTOMER = 2;
+    public const ROLE_CTV = 2;
+    public const ROLE_CUSTOMER = 3;
 
     //active
     public const NO_ACTIVE = 0;
@@ -86,8 +87,8 @@ class User extends Authenticatable
             case self::ROLE_ADMIN:
                 $role = "Quản trị viên";
                 break;
-            case self::ROLE_CUSTOMER:
-                $role = "Khách hàng";
+            case self::ROLE_CTV:
+                $role = "Cộng tác viên";
                 break;
             default:
                 $role = "";

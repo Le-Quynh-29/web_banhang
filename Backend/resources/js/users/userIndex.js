@@ -24,7 +24,6 @@
         init: function() {
             this.changeSelect();
             this.search();
-            this.settingNav();
         },
         changeSelect: function() {
             $('#search_by').change(function() {
@@ -38,7 +37,7 @@
                     $(`.input-option select`).removeClass('active');
                     $(`#search-text`).addClass('active');
                 }
-                
+
             });
         },
         search: function() {
@@ -59,10 +58,6 @@
                 event.preventDefault();
             });
         },
-        settingNav: function(){
-            $('.breadcrumb').append(`<li class="breadcrumb-item active"><span>Quản lý người dùng</span></li>`)
-        }
-
     };
 
     /* Execute main function */

@@ -22,14 +22,7 @@
             });
         },
         init: function () {
-            this.settingNav();
         },
-
-        settingNav: function () {
-            $('.breadcrumb').append(`<li class="breadcrumb-item active"><span><a href="${_userUrl}">Quản lý người dùng</a></span></li>`)
-            $('.breadcrumb').append(`<li class="breadcrumb-item active"><span>Thêm mới người dùng</span></li>`)
-        }
-
     };
 
     /* Execute main function */

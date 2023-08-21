@@ -7,11 +7,13 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/app.scss',
+                'resources/sass/user.scss',
                 'resources/js/app.js',
                 'resources/js/jquery-validation.js',
                 'resources/js/login.js',
                 'resources/js/navbar.js',
                 //User
+                'resources/js/users/userIndex.js',
                 'resources/js/users/userCreate.js',
             ],
             refresh: true,

@@ -17,9 +17,8 @@
          
                 <div class="col-12">
                     <select class="form-select" name="search_by" id="search_by">
-                      <option selected value="" >-- Tìm kiếm theo --</option>
-                      <option value="username" <?= request()->search_by == 'username' ? 'selected' : '' ?>>Tên đăng nhập</option>
-                      <option value="fullname" <?= request()->search_by == 'fullname' ? 'selected' : '' ?>>Họ và tên</option>
+                      <option value="username" <?= request()->search_by == 'username' ? 'selected' : '' ?>>Tên tài khoản</option>
+                      <option value="fullname" <?= request()->search_by == 'fullname' ? 'selected' : '' ?>>Tên người dùng</option>
                       <option value="email" <?= request()->search_by == 'email' ? 'selected' : '' ?>>Email</option>
                       <option value="phone_number" <?= request()->search_by == 'phone_number' ? 'selected' : '' ?>>Số điện thoại</option>
                       <option value="role" <?= request()->search_by == 'role' ? 'selected' : '' ?>>Vai trò</option>
@@ -30,7 +29,7 @@
                     <div class="input-group input-option">
                         <input type="text" name="search_text" id="search-text" value="<?= request()->search_text?>" class="form-control <?= (request()->active == null && request()->role == null )  ? 'active' : '' ?>" placeholder="Nhập tìm kiếm...">
                         <select class="form-select <?= (request()->active != null && (request()->role == null && request()->search_text == null)) ? 'active' : '' ?>" id="active" name="active">
-                            <option value="0" <?= request()->active == '0' ? 'selected' : '' ?>>Đang hoạt động</option>
+                            <option value="0" <?= request()->active == '0' ? 'selected' : '' ?>>Đã kích hoạt</option>
                             <option value="1" <?= request()->active == '1' ? 'selected' : '' ?>>Vô hiệu hóa</option>
                         </select>
                         <select class="form-select <?= (request()->role != null && (request()->active == null && request()->search_text == null)) ? 'active' : '' ?>" id="role" name="role">
@@ -102,7 +101,7 @@
                                     <i class="p-r fas fa-edit fa-lg"></i>
                                 </a>
                             @if($user->active == 1)
-                            <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Đang hoạt động" id="user-unlock">
+                            <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Đã kích hoạt" id="user-unlock">
                                 <i class="icon-lock fas fa-user-unlock fa-lg mr-3 cl-green"></i>
                             </a>
                             @elseif($user->active == 0)
@@ -131,11 +130,12 @@
             </div>
         </div>
     </div>
-    @include('layouts.shared.modalConfirm')
+    @include('modal.confirm')
 @endsection
 @section('javascript')
     <script>
         var _userUrl = {!! json_encode(route('user.index')) !!};
+        window.localStorage.setItem('menu-selected', 'user');
     </script>
-    @vite('resources/js/users/userCreate.js')
+    @vite('resources/js/users/userIndex.js')
 @endsection

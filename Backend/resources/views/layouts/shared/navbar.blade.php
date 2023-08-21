@@ -1,4 +1,4 @@
-<div class="sidebar-brand d-none d-md-flex">
+<div class="sidebar-brand d-md-flex">
     <img src="" class="sidebar-brand-full navbar-image" alt="QUEEN SHOP"
          height="46">
     <img src="" class="sidebar-brand-narrow navbar-image" alt="QUEEN SHOP"

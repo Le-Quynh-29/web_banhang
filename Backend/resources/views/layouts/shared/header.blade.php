@@ -23,11 +23,5 @@
             </li>
         </ul>
     </div>
-    <div class="container-fluid header-menu">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb my-0 ms-2">
-                <li class="breadcrumb-item active"><span>Dashboard</span></li>
-            </ol>
-        </nav>
-    </div>
+    @yield('header')
 </header>

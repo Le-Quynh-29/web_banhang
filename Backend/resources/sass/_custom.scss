@@ -98,6 +98,7 @@
 
         .nav-link {
             color: rgba(255, 255, 255, 1);
+            padding: 0.8445rem 0.7rem!important;
 
             &:hover,
             &.active {
@@ -105,8 +106,8 @@
             }
         }
 
-        .sidebar-nav-icon,
-        .sidebar-nav-dropdown-toggle {
+        .nav-icon,
+        .nav-group {
             color: rgba(255, 255, 255, 1);
         }
 

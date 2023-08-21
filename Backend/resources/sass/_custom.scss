@@ -1148,7 +1148,6 @@ select {
     td {
         a {
             color: #007bff !important;
-            font-weight: bold;
         }
     }
 
@@ -1166,9 +1165,9 @@ select {
     }
 
     tbody {
-        tr:nth-of-type(odd) {
-            background-color: #EFF6FF !important;
-        }
+        // tr:nth-of-type(odd) {
+        //     background-color: #EFF6FF !important;
+        // }
 
         tr:last-child {
             border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;

@@ -65,4 +65,48 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function formatDate($date)
+    {
+        if (is_null($date)) {
+            $timeFormat = null;
+        } else {
+            if (is_string($date)) {
+                $date = strtotime($date);
+                $timeFormat = date('d/m/Y', $date);
+            } else {
+                $timeFormat = $date->format('d/m/Y');
+            }
+        }
+        return $timeFormat;
+    }
+
+    public function convertRole($role){
+        switch ($role) {
+            case self::ROLE_ADMIN:
+                $role = "Quản trị viên";
+                break;
+            case self::ROLE_CUSTOMER:
+                $role = "Khách hàng";
+                break;
+            default:
+                $role = "";
+                break;
+        }
+        return $role;
+    }
+    public function convertStatus($status){
+        switch ($status) {
+            case self::ACTIVE:
+                $status = "<p class='cl-green fw-bold'>Đang hoạt động</p>";
+                break;
+            case self::NO_ACTIVE:
+                $status = "<p class='cl-red fw-bold'>Vô hiệu hóa</p>";
+                break;
+            default:
+                $status = "";
+                break;
+        }
+        return $status;
+    }
 }

@@ -20,9 +20,12 @@
                 <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content"
                      style="height: 100%;">
                     <div class="simplebar-content" style="padding: 0px;">
-                        <li class="nav-item"><a class="nav-link active" href="index.html" style="padding: 0.8445rem 0.7rem;">
+                        <li class="nav-item"><a class="nav-link active" href="{{route('dashboard')}}" style="padding: 0.8445rem 0.7rem;">
                                 <i class="nav-icon fas fa-tachometer-alt-average"></i>
                                 Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('user.index')}}" style="padding: 0.8445rem 0.7rem;">
+                            <i class="nav-icon fas fa-user"></i>
+                            Người dùng</a></li>
                     </div>
                 </div>
             </div>

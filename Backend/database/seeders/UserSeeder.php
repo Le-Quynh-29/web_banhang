@@ -29,5 +29,17 @@ class UserSeeder extends Seeder
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
+        DB::table('users')->insert([
+            'username' => 'Admin1',
+            'fullname' => 'Administrator1',
+            'email' => 'admin1@gmail.com',
+            'gender' => 0,
+            'role' => 1,
+            'active' => 1,
+            'password' => Hash::make('12345678'),
+            'password_raw' => '12345678',
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
+        ]);
     }
 }

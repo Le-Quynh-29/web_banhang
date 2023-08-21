@@ -11,6 +11,8 @@ export default defineConfig({
                 'resources/js/jquery-validation.js',
                 'resources/js/login.js',
                 'resources/js/navbar.js',
+                //User
+                'resources/js/users/userCreate.js',
             ],
             refresh: true,
         }),

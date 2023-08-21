@@ -22,7 +22,7 @@ class UserRepository extends AbstractRepository
         $sortBy       = in_array($request->get('sort_by'), ['asc','desc']) ? $request->get('sort_by') : 'desc';
         $searchBy     = $request->get('search_by');
         $searchText   = $request->get('search_text');
-        $status       = $request->get('status');
+        $active       = $request->get('active');
         $role         = $request->get('role');
         $data         = $this->model::select('*')->distinct();
         if (sizeof($with) > 0) {
@@ -47,8 +47,8 @@ class UserRepository extends AbstractRepository
         }
 
         if (!empty($searchBy)) {
-            if (in_array((int)$status,[$this->model::NO_ACTIVE,$this->model::ACTIVE])) {
-                $data = $data->where('active', '<>', $status)->where($searchBy, 'LIKE', "%$searchText%");
+            if (in_array((int)$active,[$this->model::NO_ACTIVE,$this->model::ACTIVE])) {
+                $data = $data->where('active', '<>', $active)->where($searchBy, 'LIKE', "%$searchText%");
             } else {
                 $data = $data->where($searchBy, 'LIKE', "%$searchText%");
             }

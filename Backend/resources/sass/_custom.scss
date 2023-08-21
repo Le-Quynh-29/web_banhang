@@ -71,6 +71,7 @@
 
 .c-style-app {
     background: #ffffff;
+
     a {
         text-decoration: none;
     }
@@ -89,22 +90,23 @@
             background-color: #31c7ff;
         }
 
-        .sidebar-nav::-webkit-scrollbar-thumb
-        {
+        .sidebar-nav::-webkit-scrollbar-thumb {
             border-radius: 10px;
-            -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,1);
+            -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 1);
             background-color: #fff;
         }
 
         .nav-link {
             color: rgba(255, 255, 255, 1);
 
-            &:hover, &.active {
+            &:hover,
+            &.active {
                 background-color: #1a90f17a;
             }
         }
 
-        .sidebar-nav-icon, .sidebar-nav-dropdown-toggle {
+        .sidebar-nav-icon,
+        .sidebar-nav-dropdown-toggle {
             color: rgba(255, 255, 255, 1);
         }
 
@@ -160,6 +162,12 @@
                 border-bottom-right-radius: calc(0.375rem - 1px);
                 background-color: #fff;
             }
+
+            .card-header {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+            }
         }
     }
 
@@ -192,32 +200,32 @@
             max-width: 100%;
         }
 
-        .row-cols-xlg-1 > * {
+        .row-cols-xlg-1>* {
             flex: 0 0 100%;
             max-width: 100%;
         }
 
-        .row-cols-xlg-2 > * {
+        .row-cols-xlg-2>* {
             flex: 0 0 50%;
             max-width: 50%;
         }
 
-        .row-cols-xlg-3 > * {
+        .row-cols-xlg-3>* {
             flex: 0 0 33.3333333333%;
             max-width: 33.3333333333%;
         }
 
-        .row-cols-xlg-4 > * {
+        .row-cols-xlg-4>* {
             flex: 0 0 25%;
             max-width: 25%;
         }
 
-        .row-cols-xlg-5 > * {
+        .row-cols-xlg-5>* {
             flex: 0 0 20%;
             max-width: 20%;
         }
 
-        .row-cols-xlg-6 > * {
+        .row-cols-xlg-6>* {
             flex: 0 0 16.6666666667%;
             max-width: 16.6666666667%;
         }
@@ -410,32 +418,32 @@
             max-width: 100%;
         }
 
-        .row-cols-xlml-1 > * {
+        .row-cols-xlml-1>* {
             flex: 0 0 100%;
             max-width: 100%;
         }
 
-        .row-cols-xlm-2 > * {
+        .row-cols-xlm-2>* {
             flex: 0 0 50%;
             max-width: 50%;
         }
 
-        .row-cols-xlm-3 > * {
+        .row-cols-xlm-3>* {
             flex: 0 0 33.3333333333%;
             max-width: 33.3333333333%;
         }
 
-        .row-cols-xlm-4 > * {
+        .row-cols-xlm-4>* {
             flex: 0 0 25%;
             max-width: 25%;
         }
 
-        .row-cols-xlm-5 > * {
+        .row-cols-xlm-5>* {
             flex: 0 0 20%;
             max-width: 20%;
         }
 
-        .row-cols-xlm-6 > * {
+        .row-cols-xlm-6>* {
             flex: 0 0 16.6666666667%;
             max-width: 16.6666666667%;
         }
@@ -623,32 +631,32 @@
             max-width: 100%;
         }
 
-        .row-cols-sms-1 > * {
+        .row-cols-sms-1>* {
             flex: 0 0 100%;
             max-width: 100%;
         }
 
-        .row-cols-sms-2 > * {
+        .row-cols-sms-2>* {
             flex: 0 0 50%;
             max-width: 50%;
         }
 
-        .row-cols-sms-3 > * {
+        .row-cols-sms-3>* {
             flex: 0 0 33.3333333333%;
             max-width: 33.3333333333%;
         }
 
-        .row-cols-sms-4 > * {
+        .row-cols-sms-4>* {
             flex: 0 0 25%;
             max-width: 25%;
         }
 
-        .row-cols-sms-5 > * {
+        .row-cols-sms-5>* {
             flex: 0 0 20%;
             max-width: 20%;
         }
 
-        .row-cols-sms-6 > * {
+        .row-cols-sms-6>* {
             flex: 0 0 16.6666666667%;
             max-width: 16.6666666667%;
         }
@@ -836,15 +844,15 @@
         }
 
         .width-100 {
-            min-width: 100px!important;
+            min-width: 100px !important;
         }
 
         .width-140 {
-            min-width: 140px!important;
+            min-width: 140px !important;
         }
 
         .width-170 {
-            min-width: 170px!important;
+            min-width: 170px !important;
         }
     }
 
@@ -873,12 +881,13 @@
         }
     }
 }
+
 .logo {
-    max-width: 100%!important;
+    max-width: 100% !important;
 }
 
 .width-100 {
-    width: 100px!important;
+    width: 100px !important;
 }
 
 .form-control.error {
@@ -931,7 +940,8 @@ label.error {
     border-bottom-left-radius: 0.25rem;
 }
 
-.date .month.is-invalid, .date .month.error {
+.date .month.is-invalid,
+.date .month.error {
     border-color: #FF0808 !important;
     outline: 0;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08), 0 0 8px rgba(251, 0, 0, 0.52) !important;
@@ -958,7 +968,10 @@ label.error {
     justify-content: right;
 }
 
-input.form-control, select.form-control, input.form-control:focus, select.form-control:focus {
+input.form-control,
+select.form-control,
+input.form-control:focus,
+select.form-control:focus {
     background: #ffffff;
 }
 
@@ -986,8 +999,8 @@ select {
     border: none;
 }
 
-.font-weight-bold{
-    font-weight:700!important
+.font-weight-bold {
+    font-weight: 700 !important
 }
 
 //checkbox
@@ -1026,12 +1039,12 @@ select {
 }
 
 /* On mouse-over, add a grey background color */
-.container-checkbox:hover input ~ .checkmark {
+.container-checkbox:hover input~.checkmark {
     background-color: #eee;
 }
 
 /* When the checkbox is checked, add a blue background */
-.container-checkbox input:checked ~ .checkmark {
+.container-checkbox input:checked~.checkmark {
     background-color: #31c7ff;
 }
 
@@ -1043,7 +1056,7 @@ select {
 }
 
 /* Show the checkmark when checked */
-.container-checkbox input:checked ~ .checkmark:after {
+.container-checkbox input:checked~.checkmark:after {
     display: block;
 }
 
@@ -1061,38 +1074,57 @@ select {
 }
 
 .btn {
-    &-primary{
+    &-primary {
         background-color: #007bff !important;
         border-color: #007bff !important;
     }
-    &-primary:hover{
+
+    &-primary:hover {
+        background-color: #0069d9 !important;
+    }
+
+    &-search {
+        border-radius: 0px !important;
+        background-color: #007bff !important;
+        border-color: #007bff !important;
+        color: #fff !important;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+    }
+
+    &-search:hover {
         background-color: #0069d9 !important;
     }
 }
 
 .badge-success {
     color: #fff;
-    background-color: #28a745;
+    background-color: #31c7ff;
     padding-bottom: 8px;
 }
 
-.text{
-    &-center{
+.text {
+    &-center {
         text-align: center !important;
     }
-    &-end{
+
+    &-end {
         text-align: end !important;
     }
-    &-start{
+
+    &-start {
         text-align: start !important;
     }
-    &-justify{
+
+    &-justify {
         text-align: justify !important;
     }
-    &-left{
+
+    &-left {
         text-align: left !important;
     }
-    &-right{
+
+    &-right {
         text-align: right !important;
     }
 }
@@ -1103,19 +1135,32 @@ select {
     th,
     td {
         vertical-align: middle !important;
-        a{
-            color: #007bff !important;
-        }
 
         p,
         ul {
             margin-bottom: 0 !important;
         }
+
+        background-color: transparent !important;
+    }
+
+    td {
+        a {
+            color: #007bff !important;
+            font-weight: bold;
+        }
+    }
+
+    th {
+        a {
+            color: #fff !important;
+        }
     }
 
     thead {
         tr {
-            background-color: #D0E0F5 !important;
+            background-color: #31c7ff !important;
+            color: #27ee37 !important;
         }
     }
 
@@ -1131,59 +1176,182 @@ select {
 }
 
 .d {
-    &-flex{
+    &-flex {
         display: flex !important;
     }
-    &-block{
+
+    &-block {
         display: block !important;
     }
-    &-none{
+
+    &-none {
         display: none !important;
     }
-    &-inline-block{
+
+    &-inline-block {
         display: inline-block !important;
     }
-    &-inline-flex{
+
+    &-inline-flex {
         display: inline-flex !important;
     }
-    &-grid{
+
+    &-grid {
         display: grid !important;
     }
 }
-.jt-cont{
-    &-sp-bw{
+
+.jt-cont {
+    &-sp-bw {
         justify-content: space-evenly;
     }
-    &-sp-ct{
+
+    &-sp-ct {
         justify-content: center;
     }
-    &-sp-l{
+
+    &-sp-l {
         justify-content: left;
     }
-    &-sp-r{
+
+    &-sp-r {
         justify-content: right;
     }
-    &-sp-fle{
+
+    &-sp-fle {
         justify-content: flex-end;
     }
-    &-sp-flst{
+
+    &-sp-flst {
         justify-content: flex-start;
     }
 }
 
-.cl{
+.cl {
     &-red {
         color: #FF0808 !important;
     }
+
+    &-blue {
+        color: #007bff !important;
+    }
+
+    &-green {
+        color: #2eb85c !important;
+    }
+}
+
+.fl {
+    &-right {
+        float: right !important;
+    }
+
+    &-left {
+        float: right !important;
+    }
+}
+
+.bgr-cl {
+    &-red {
+        color: #FF0808 !important;
+    }
+
     &-blue {
         color: #007bff !important;
     }
 }
-.fl{
-    &-right{
-        float: right !important;
+
+.input-option {
+
+    input,
+    select {
+        display: none !important;
     }
-    &-left{
-        float: right !important;
+
+    input.active {
+        display: block !important;
     }
+
+    select.active {
+        display: block !important;
+    }
+}
+
+.fw {
+    &-bold {
+        font-weight: bold !important;
+    }
+
+    &-bolder {
+        font-weight: bolder !important;
+    }
+
+    &-lighter {
+        font-weight: lighter !important;
+    }
+
+    &-normal {
+        font-weight: normal !important;
+    }
+
+    &-bold {
+        font-weight: unset !important;
+    }
+
+    &-inherit {
+        font-weight: inherit !important;
+    }
+
+    &-initial {
+        font-weight: initial !important;
+    }
+
+    &-100 {
+        font-weight: 100 !important;
+    }
+
+    &-200 {
+        font-weight: 200 !important;
+    }
+
+    &-300 {
+        font-weight: 300 !important;
+    }
+
+    &-400 {
+        font-weight: 400 !important;
+    }
+
+    &-500 {
+        font-weight: 500 !important;
+    }
+
+    &-600 {
+        font-weight: 600 !important;
+    }
+
+    &-700 {
+        font-weight: 700 !important;
+    }
+
+    &-800 {
+        font-weight: 800 !important;
+    }
+
+    &-900 {
+        font-weight: 900 !important;
+    }
+}
+
+.close {
+    border: none !important;
+    outline: none !important;
+    background-color: transparent !important;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
 }

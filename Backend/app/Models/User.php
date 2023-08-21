@@ -98,10 +98,10 @@ class User extends Authenticatable
     public function convertStatus($status){
         switch ($status) {
             case self::ACTIVE:
-                $status = "<p class='cl-green fw-bold'>Đang hoạt động</p>";
+                $status = "<p class='cl-green'>Đã kích hoạt</p>";
                 break;
             case self::NO_ACTIVE:
-                $status = "<p class='cl-red fw-bold'>Vô hiệu hóa</p>";
+                $status = "<p class='cl-red'>Vô hiệu hóa</p>";
                 break;
             default:
                 $status = "";

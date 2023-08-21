@@ -13,8 +13,6 @@
         _init: function _init() {
             this.ajaxSetup();
             this.init();
-            this.changeSelect();
-            this.search();
         },
         ajaxSetup: function () {
             $.ajaxSetup({
@@ -23,42 +21,15 @@
                 }
             });
         },
-        init: function() {
+        init: function () {
+            this.settingNav();
+        },
 
-        },
-        changeSelect: function() {
-            $('#search_by').change(function() {
-                let selectedValue = $(this).val();
-                let allowedValues = ['role', 'active'];
-                if (allowedValues.includes(selectedValue)) {
-                    $(`#search-text`).removeClass('active');
-                    $(`.input-option select`).removeClass('active');
-                    $(`#${selectedValue}`).addClass('active');
-                } else{
-                    $(`.input-option select`).removeClass('active');
-                    $(`#search-text`).addClass('active');
-                }
-                
-            });
-        },
-        search: function() {
-            $('#search-form').submit(function(event) {
-                let searchByName = $('#search_by').attr('name');
-                let searchTextByName = $('#search-text').attr('name');
-                let activeName = $('#active').attr('name');
-                let roleName = $('#role').attr('name');
-                let searchByValue = $('#search_by').val();
-                let searchTextValue = $('#search-text').val();
-                let activeValue = $('#active').val();
-                let roleValue = $('#role').val();
-                searchTextByName = $(`#search-text.active`).length == 0 ? '' : searchTextByName;
-                activeValue = $(`#active.active`).length == 0 ? '' : activeValue;
-                roleValue = $(`#role.active`).length == 0 ? '' : roleValue;
-                let newUrl = _userUrl +`?${searchByName}=${searchByValue}&${searchTextByName}=${searchTextValue}&${activeName}=${activeValue}&${roleName}=${roleValue}` ;
-                window.location.href = newUrl;
-                event.preventDefault();
-            });
-        },
+        settingNav: function () {
+            $('.breadcrumb').append(`<li class="breadcrumb-item active"><span><a href="${_userUrl}">Quản lý người dùng</a></span></li>`)
+            $('.breadcrumb').append(`<li class="breadcrumb-item active"><span>Thêm mới người dùng</span></li>`)
+        }
+
     };
 
     /* Execute main function */

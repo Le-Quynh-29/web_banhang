@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('style')
+    @vite('resources/sass/user.scss')
+@endsection
 @section('header')
     <div class="container-fluid header-menu">
         <nav aria-label="breadcrumb">
@@ -13,10 +16,12 @@
     <div class="card mb-4">
         <div class="card-header">
             <h4> Quản lý người dùng</h4>
-            <a href="{{route('user.create')}}" class="cl-blue fl-right">
-                <i class="fas fa-plus-circle"></i>
-                Thêm mới
-            </a>
+            <div class="bgr-cl-blue btn">
+                <a href="{{route('user.create')}}" class="cl-while fl-right"> 
+                    <i class="fas fa-plus-circle"></i>
+                    Thêm mới
+                </a>
+            </div>
         </div>
         <div class="card-body">
             <form action="" method="GET" id="search-form" class="row row-cols-lg-auto g-3 align-items-center mb-4">
@@ -44,7 +49,7 @@
                             <option value="{{\App\Models\User::ROLE_ADMIN}}" <?= request()->role == \App\Models\User::ROLE_ADMIN ? 'selected' : '' ?>>Quản trị viên</option>
                             <option value="{{\App\Models\User::ROLE_CTV}}" <?= request()->role == \App\Models\User::ROLE_CTV ? 'selected' : '' ?>>Cộng tác viên</option>
                         </select>
-                        <span class="input-group-append" id="search">
+                        <span class="input-group-append" id="search" data-toggle="tooltip" data-coreui-placement="top" data-coreui-title="Tìm kiếm">
                             <button class="btn btn-search">
                                 <i class="fas fa-search"></i>
                             </button>
@@ -56,12 +61,12 @@
                 <div class="col-12">
                     <div class="float-left">
                         <h5><span class="float-left">Tổng số: </span>&nbsp;
-                            <strong> {{$users->total()}}</strong>
+                            <strong id="total-user"> {{$users->total()}}</strong>
                         </h5>
                     </div>
                 </div>
             </div>
-            <table class="table table-responsive-sm">
+            <table class="table table-responsive">
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">
@@ -92,35 +97,36 @@
                 <tbody>
                     @if(isset($users))
                         @foreach($users as $user)
-                            <tr>
+                            <tr id="user-{{$user->id}}">
                                 <td scope="row" class="text-center">
-                                    <a href="{{route('user.show',$user->id)}}" data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Chi tiết">{!!$user->id!!}</a>
+                                    <a href="{{route('user.show',$user->id)}}" data-toggle="tooltip" data-coreui-placement="top" data-coreui-title="Chi tiết">{!!$user->id!!}</a>
                                 </td>
-                                <td class="text-center text-break"><a href="{{route('user.show',$user->id)}}">{!!$user->fullname!!}</a></td>
+                                <td class="text-center text-break"><a href="{{route('user.show',$user->id)}}" data-toggle="tooltip" data-coreui-placement="top" data-coreui-title="Chi tiết">{!!$user->fullname!!}</a></td>
                                 <td class="text-center text-break">{!!$user->email!!}</td>
                                 <td class="text-center text-break">{!!$user->phone_number!!}</td>
                                 <td class="text-center text-break">{!!$user->convertRole($user->role)!!}</td>
                                 <td class="text-center text-break">{!!$user->convertStatus($user->active)!!}</td>
                                 <td class="text-center text-break">{!!$user->formatDate($user->updated_at)!!}</td>
                                 <td class="">
-                                    @if($user->role == \App\Models\User::ROLE_ADMIN)
+                                    @if(Auth::user()->role == \App\Models\User::ROLE_ADMIN)
                                         <div class="d-flex jt-cont-sp-bw" >
-                                            <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Cập nhật" href="{{route('user.edit',$user->id)}}">
+                                            <a data-toggle="tooltip"  data-coreui-placement="top" data-coreui-title="Cập nhật" href="{{route('user.edit',$user->id)}}">
                                                 <i class="p-r fas fa-edit fa-lg"></i>
                                             </a>
                                             @if($user->active == 1)
-                                                <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Đã kích hoạt" id="user-unlock">
+                                                <a data-toggle="tooltip" data-id="{{$user->id}}"  data-coreui-placement="top" data-coreui-title="Đã kích hoạt" class="user-unlock">
                                                     <i class="icon-lock fas fa-user-unlock fa-lg mr-3 cl-green"></i>
                                                 </a>
                                             @elseif($user->active == 0)
-                                                <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Vô hiệu hóa" id="user-lock">
+                                                <a data-toggle="tooltip" data-id="{{$user->id}}"  data-coreui-placement="top" data-coreui-title="Vô hiệu hóa" class="user-lock">
                                                     <i class="icon-user-lock fas fa-user-lock fa-lg mr-3 cl-red"></i>
                                                 </a>
                                             @endif
-                                            <a data-toggle="tooltip" data-coreui-placement="bottom" data-coreui-original-title="Xóa">
+                                            @if(\App\Models\User::ROLE_ADMIN != $user->role)
+                                            <a data-toggle="tooltip" data-id="{{$user->id}}"  data-coreui-placement="top" data-coreui-title="Xóa" class="user-delete" >
                                                 <i class="fas fa-trash fa-lg cl-red"></i>
                                             </a>
-
+                                            @endif
                                         </div>
                                     @endif
                                 </td>
@@ -142,7 +148,10 @@
 @endsection
 @section('javascript')
     <script>
+        var message = {!! json_encode($message) !!};
         var _userUrl = {!! json_encode(route('user.index')) !!};
+        var _userDeleteUrl = {!! json_encode(route('user.destroy','id')) !!};
+        var _userUnlockOrLockUrl = {!! json_encode(route('ajax.user.unlock.or.lock')) !!};
         window.localStorage.setItem('menu-selected', 'user');
     </script>
     @vite('resources/js/users/userIndex.js')

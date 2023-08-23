@@ -19,4 +19,14 @@ use Illuminate\Support\Facades\Route;
         Route::post('/check-login', [\App\Http\Controllers\Auth\AdminController::class, 'checkErrorLogin'])
             ->name('ajax.admin.check.login');
     });
+    Route::prefix('user')->group(function () {
+        Route::post('/unlock-or-lock', [\App\Http\Controllers\UserController::class, 'unlockOrlock'])
+            ->name('ajax.user.unlock.or.lock');
+    });
 //});
+Route::group(['middleware' => ['auth']], function () {
+    Route::prefix('user')->group(function () {
+        Route::post('/unlock-or-lock', [\App\Http\Controllers\UserController::class, 'unlockOrlock'])->name('ajax.user.unlock.or.lock');
+    });
+});
+

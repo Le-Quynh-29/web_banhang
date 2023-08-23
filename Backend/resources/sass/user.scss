@@ -11,6 +11,71 @@
 .breadcrumb-item a {
     color: #007bff !important;
 }
-.required{
+
+.required {
     color: red !important;
+}
+
+#image {
+    &-avt {
+        border: 1px solid #e7e8ec;
+        position: relative;
+        width: 100%;
+        background-color: #fff;
+        padding: 20px 10px 20px 30px;
+        border-radius: 5px;
+        text-align: start;
+    }
+
+    &-avt::after {
+        content: "Chọn ảnh";
+        display: block;
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        bottom: 0;
+    }
+
+    &-avt::before {
+        content: "";
+        display: block;
+        height: 100%;
+        width: 1px;
+        background-color: #e7e8ec;
+        position: absolute;
+        left: 25%;
+        top: 0;
+        bottom: 0;
+    }
+}
+
+#show-avt {
+    width: inherit;
+
+    img {
+        width: inherit;
+        height: inherit;
+        object-fit: cover;
+    }
+}
+
+label {
+    width: inherit !important;
+}
+
+.group-file {
+    display: flex;
+}
+
+.col {
+    &-md {
+        &-3 {
+            flex: 0 0 auto;
+            width: 25% !important;
+        }
+    }
+}
+.image-user{
+    width: inherit !important;
 }

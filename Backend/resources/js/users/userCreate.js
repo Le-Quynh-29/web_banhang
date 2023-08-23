@@ -1,4 +1,3 @@
-import * as FilePond from 'filepond';
 (function ($) {
     'use strict';
 
@@ -8,6 +7,9 @@ import * as FilePond from 'filepond';
         this.$element = $(element);
         this.appUrl = _appUrl;
         this.token = _token;
+        this.$element.on('input', function () {
+            user.initValidors();
+        });
     };
 
     User.prototype = {
@@ -23,49 +25,29 @@ import * as FilePond from 'filepond';
             });
         },
         init: function () {
-            this.initFilePond()
+            this.initUploadImage();
+            this.initValidors();
         },
-        initFilePond: function () {
-            const inputElement = document.querySelector('input[type="file"]');
-            const filePondOptions = {
-                server: {
-                    method: 'POST', 
-                    process: {
-                        url: _userUploadImageUrl,
-                        method: 'POST', 
-                        withCredentials: true,
-                        headers: {
-                            'X-CSRF-TOKEN': this.token 
-                        }
-                    },
-                    revert: {
-                        url: _userDeleteImageUrl, 
-                        method: 'DELETE', 
-                        withCredentials: true,
-                        headers: {
-                            'X-CSRF-TOKEN': this.token 
-                        }
-                    },
-                },
-                labelIdle: 'Kéo và thả ảnh hoặc <span class="filepond--label-action">Bấm vào đây</span>',
-                acceptedFileTypes:['image/*'],
-                maxFileSize: '1MB',
-                allowMultiple: false,
-                serverRetry: 3,
-                instantUpload:true,
-                dropValidation: true, 
-                onaddfile: (error, file) => {
-                    if (!error) {
-                        console.log('Đã thêm tệp:', file);
-                    } else {
-                        console.log(error);
-                    }
-                },
-                onremovefile: (error, file) => {
-                    console.log('Đã xóa tệp:', file);
-                },
-            };
-            FilePond.create(inputElement, filePondOptions);
+        initUploadImage: function () {
+            $(document).ready(function () {
+                $('#image').change(function () {
+                  $('#blah').show();
+                  const file = $(this)[0].files;
+                  if (file[0]) {
+                    $('#blah').attr('src', URL.createObjectURL(file[0]));
+                  }
+                });
+            });
+        },
+        initValidors: function(){
+            let isValid = true;
+            $('form input').each(function() {
+                if ($(this).val()?.trim() === '') {
+                    isValid = false;
+                    return false;
+                }
+            });
+            $('#submit').prop('disabled', !isValid);
         }
     };
 

@@ -8,14 +8,15 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/sass/user.scss',
-                'resources/sass/file-pond.scss',
                 'resources/js/app.js',
+                'resources/js/tooltips.js',
                 'resources/js/jquery-validation.js',
                 'resources/js/login.js',
                 'resources/js/navbar.js',
                 //User
                 'resources/js/users/userIndex.js',
                 'resources/js/users/userCreate.js',
+                'resources/js/users/userEdit.js',
             ],
             refresh: true,
         }),

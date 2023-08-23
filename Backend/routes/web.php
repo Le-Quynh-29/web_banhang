@@ -26,4 +26,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [\App\Http\Controllers\LogController::class, 'index'])->name('log.index');
         Route::get('/{id}', [\App\Http\Controllers\LogController::class, 'show'])->name('log.show');
     });
+
+    Route::prefix('permission')->group(function () {
+        Route::get('/', [\App\Http\Controllers\PermissionController::class, 'index'])->name('permission.index');
+        Route::get('edit/{id}', [\App\Http\Controllers\PermissionController::class, 'edit'])->name('permission.edit');
+        Route::post('edit/{id}', [\App\Http\Controllers\PermissionController::class, 'update'])->name('permission.update');
+    });
 });

@@ -133,5 +133,5 @@
         var _categoryUrl = {!! json_encode(route('category.index')) !!};
         window.localStorage.setItem('menu-selected', 'category');
     </script>
-    @vite('resources/js/categories/category-index.js')
+    @vite('resources/js/category/index.js')
 @endsection

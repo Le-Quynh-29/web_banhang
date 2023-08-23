@@ -22,12 +22,6 @@
         </div>
         <div class="card-body">
             <div class="form-horizontal">
-                <div class="nav-tabs-boxed">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item active">
-                            <a class="nav-link active">Thông tin người dùng</a>
-                        </li>
-                    </ul>
                     <div class="tab-content">
                         <div class="tab-pane active row-cols-lg-auto g-3 align-items-center mb-4 pt-4">
                             <div class="form-group row mb-4">
@@ -140,11 +134,10 @@
                             </div>
                             <div>
                                 <button class="btn btn-primary" id="submit" type="submit">Thêm mới</button>
-                                <a class="btn btn-danger" href="{{route('user.index')}}">Hủy</a>
+                                <a class="btn btn-danger" href="{{ url()->previous() }}">Hủy</a>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -154,5 +147,5 @@
     <script>
         window.localStorage.setItem('menu-selected', 'user');
     </script>
-    @vite('resources/js/users/user-create.js')
+    @vite('resources/js/user/create.js')
 @endsection

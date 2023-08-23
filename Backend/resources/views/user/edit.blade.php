@@ -141,7 +141,7 @@
                             </div>
                             <div>
                                 <button class="btn btn-primary" id="submit" type="button">Cập nhật</button>
-                                <a class="btn btn-danger" href="{{route('user.index')}}">Hủy</a>
+                                <a class="btn btn-danger" href="{{ url()->previous() }}">Hủy</a>
                             </div>
                         </div>
                     </div>
@@ -156,5 +156,5 @@
     <script>
         window.localStorage.setItem('menu-selected', 'user');
     </script>
-    @vite('resources/js/users/user-edit.js')
+    @vite('resources/js/user/edit.js')
 @endsection

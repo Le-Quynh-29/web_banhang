@@ -58,7 +58,7 @@
                             </div>
                             <div>
                                 <button class="btn btn-primary" id="submit" type="submit">Thêm mới</button>
-                                <a class="btn btn-danger" href="{{route('category.index')}}">Hủy</a>
+                                <a class="btn btn-danger" href="{{ url()->previous() }}">Hủy</a>
                             </div>
                         </div>
                     </div>
@@ -72,5 +72,5 @@
     <script>
         window.localStorage.setItem('menu-selected', 'category');
     </script>
-    @vite('resources/js/categories/category-create.js')
+    @vite('resources/js/category/create.js')
 @endsection

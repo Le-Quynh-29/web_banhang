@@ -12,18 +12,23 @@ export default defineConfig({
                 'resources/js/jquery-validation.js',
                 'resources/js/login.js',
                 'resources/js/navbar.js',
+                'resources/js/tagify.js',
+                'resources/sass/tagify.scss',
                 //User
                 'resources/sass/user.scss',
 
-                'resources/js/users/user-index.js',
-                'resources/js/users/user-create.js',
-                'resources/js/users/user-edit.js',
+                'resources/js/user/index.js',
+                'resources/js/user/create.js',
+                'resources/js/user/edit.js',
                 //Category
                 'resources/sass/category.scss',
                 
-                'resources/js/categories/category-index.js',
-                'resources/js/categories/category-create.js',
-                'resources/js/categories/category-edit.js',
+                'resources/js/category/index.js',
+                'resources/js/category/create.js',
+                'resources/js/category/edit.js',
+                //log
+                'resources/js/log/log.js',
+                'resources/js/log/show.js',
             ],
             refresh: true,
         }),
@@ -37,6 +42,7 @@ export default defineConfig({
             '~js-url': path.resolve(__dirname, 'node_modules/js-url'),
             '~jquery-validation': path.resolve(__dirname, 'node_modules/jquery-validation'),
             '~toastr': path.resolve(__dirname, 'node_modules/toastr'),
+            '~tagify': path.resolve(__dirname, 'node_modules/@yaireo/tagify'),
         }
     },
     module: {

@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +25,14 @@ class StoreUserRequest extends FormRequest
     {
         $validRoles = implode(',', [User::ROLE_ADMIN, User::ROLE_CTV]);
         $rules = [
-            'username' => 'required|min:8|max:20|unique:users|regex:/^[A-Za-z0-9\-_@]+$/',
+            'username' => ['required',Rule::unique('users')->ignore($this->user),'min:8','max:20','regex:/^[A-Za-z0-9\-_@]+$/'],
             'fullname' => 'required|max:50',
-            'email' => 'required|email|unique:users|max:255',
+            'email' => ['required',Rule::unique('users')->ignore($this->user),'email','max:255'],
             'gender' => 'required',
             'phone_number' => 'required|min:8|max:20|regex:/^(?:\+?\d{1,3}\s?)?[0-9\-]+$/',
             'role' => 'required',
             'active' => 'required',
             'role' => 'required|in:' . $validRoles,
-            'password' => 'required|min:6|max:20|regex:/^[^\s]+$/',
-            'image' => 'required',
         ];
         return $rules;
     }
@@ -65,18 +64,12 @@ class StoreUserRequest extends FormRequest
             'phone_number.min' => ':attribute lớn hơn hoặc bằng :min ký tự.',
             'phone_number.max' => ':attribute nhỏ hơn hoặc bằng :max ký tự.',
             'phone_number.regex' => ':attribute chứa ký tự đặc biệt không được phép.',
-            
+
             'role.required' => ':attribute không được để trống.',
             'role.in' => ':attribute không thuộc các quyền được cấp phép.',
 
             'active.required' => ':attribute không được để trống.',
 
-            'password.required' => ':attribute không được để trống.',
-            'password.min' => ':attribute lớn hơn hoặc bằng :min ký tự.',
-            'password.max' => ':attribute nhỏ hơn hoặc bằng :max ký tự.',
-            'password.regex' => ':attribute không được chứa dấu cách.',
-
-            'image.required' => ':attribute không được để trống.',
         ];
     }
     public function attributes(): array
@@ -90,8 +83,6 @@ class StoreUserRequest extends FormRequest
             'phone_number' => 'Số điện thoại',
             'role' => 'Chức vụ',
             'active' => 'Trạng thái',
-            'password' => 'Mật khẩu',
-            'image' => 'Ảnh đại diện',
         ];
     }
 }

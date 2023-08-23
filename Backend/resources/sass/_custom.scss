@@ -74,6 +74,7 @@
 
     a {
         text-decoration: none;
+        cursor: pointer;
     }
 
     .sidebar {
@@ -98,7 +99,7 @@
 
         .nav-link {
             color: rgba(255, 255, 255, 1);
-            padding: 0.8445rem 0.7rem!important;
+            padding: 0.8445rem 0.7rem !important;
 
             &:hover,
             &.active {
@@ -1239,6 +1240,14 @@ select {
     &-green {
         color: #2eb85c !important;
     }
+
+    &-while {
+        color: #fff !important;
+    }
+
+    &-black {
+        color: #000 !important;
+    }
 }
 
 .fl {
@@ -1253,11 +1262,19 @@ select {
 
 .bgr-cl {
     &-red {
-        color: #FF0808 !important;
+        background-color: #FF0808 !important;
     }
 
     &-blue {
-        color: #007bff !important;
+        background-color: #31c7ff !important;
+    }
+
+    &-while {
+        background-color: #fff !important;
+    }
+
+    &-black {
+        background-color: #000 !important;
     }
 }
 
@@ -1354,4 +1371,14 @@ select {
     color: #fff;
     background-color: #007bff;
     border-color: #007bff;
+}
+
+.asc:after {
+    content: " ↑";
+    font-size: 16px;
+}
+
+.desc:after {
+    content: " ↓";
+    font-size: 16px;
 }

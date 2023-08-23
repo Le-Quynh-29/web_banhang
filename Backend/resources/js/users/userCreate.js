@@ -7,6 +7,9 @@
         this.$element = $(element);
         this.appUrl = _appUrl;
         this.token = _token;
+        this.$element.on('input', function () {
+            user.initValidors();
+        });
     };
 
     User.prototype = {
@@ -22,14 +25,30 @@
             });
         },
         init: function () {
-            this.settingNav();
+            this.initUploadImage();
+            this.initValidors();
         },
-
-        settingNav: function () {
-            $('.breadcrumb').append(`<li class="breadcrumb-item active"><span><a href="${_userUrl}">Quản lý người dùng</a></span></li>`)
-            $('.breadcrumb').append(`<li class="breadcrumb-item active"><span>Thêm mới người dùng</span></li>`)
+        initUploadImage: function () {
+            $(document).ready(function () {
+                $('#image').change(function () {
+                  $('#blah').show();
+                  const file = $(this)[0].files;
+                  if (file[0]) {
+                    $('#blah').attr('src', URL.createObjectURL(file[0]));
+                  }
+                });
+            });
+        },
+        initValidors: function(){
+            let isValid = true;
+            $('form input').each(function() {
+                if ($(this).val()?.trim() === '') {
+                    isValid = false;
+                    return false;
+                }
+            });
+            $('#submit').prop('disabled', !isValid);
         }
-
     };
 
     /* Execute main function */

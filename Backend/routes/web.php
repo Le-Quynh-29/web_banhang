@@ -21,4 +21,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/logout', [\App\Http\Controllers\Auth\AdminController::class, 'logout'])->name('logout');
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('user',\App\Http\Controllers\UserController::class);
+    Route::resource('category',\App\Http\Controllers\CategoryController::class);
 });

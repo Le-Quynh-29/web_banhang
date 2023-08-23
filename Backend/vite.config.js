@@ -7,16 +7,23 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/app.scss',
-                'resources/sass/user.scss',
                 'resources/js/app.js',
                 'resources/js/tooltips.js',
                 'resources/js/jquery-validation.js',
                 'resources/js/login.js',
                 'resources/js/navbar.js',
                 //User
-                'resources/js/users/userIndex.js',
-                'resources/js/users/userCreate.js',
-                'resources/js/users/userEdit.js',
+                'resources/sass/user.scss',
+
+                'resources/js/users/user-index.js',
+                'resources/js/users/user-create.js',
+                'resources/js/users/user-edit.js',
+                //Category
+                'resources/sass/category.scss',
+                
+                'resources/js/categories/category-index.js',
+                'resources/js/categories/category-create.js',
+                'resources/js/categories/category-edit.js',
             ],
             refresh: true,
         }),

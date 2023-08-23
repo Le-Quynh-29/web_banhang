@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('style')
-    @vite('resources/sass/user.scss')
+    @vite('resources/sass/category.scss')
 @endsection
 @section('header')
     <div class="container-fluid header-menu">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-0 ms-2">
                 <li class="breadcrumb-item"><span>Hệ thống</span></li>
-                <li class="breadcrumb-item active"><span>Quản lý người dùng</span></li>
+                <li class="breadcrumb-item active"><span>Quản lý danh mục</span></li>
             </ol>
         </nav>
     </div>
@@ -15,9 +15,9 @@
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
-            <h4> Quản lý người dùng</h4>
+            <h4> Quản lý danh mục</h4>
             <div class="bgr-cl-blue btn">
-                <a href="{{route('user.create')}}" class="cl-while fl-right"> 
+                <a href="{{route('category.create')}}" class="cl-while fl-right"> 
                     <i class="fas fa-plus-circle"></i>
                     Thêm mới
                 </a>
@@ -61,7 +61,7 @@
                 <div class="col-12">
                     <div class="float-left">
                         <h5><span class="float-left">Tổng số: </span>&nbsp;
-                            <strong id="total-user"> {{$users->total()}}</strong>
+                            <strong id="total-user"> {{$categories->total()}}</strong>
                         </h5>
                     </div>
                 </div>
@@ -70,63 +70,44 @@
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">
-                            <a data-field="users.id" class="laravel-sort">ID</a>
+                            <a data-field="categories.id" class="laravel-sort">ID</a>
                         </th>
                         <th scope="col" class="text-center">
-                            <a data-field="users.fullname" class="laravel-sort">Họ và Tên</a>
+                            <a data-field="categories.code" class="laravel-sort">Code</a>
                         </th>
                         <th scope="col" class="text-center">
-                            <a data-field="users.email" class="laravel-sort">Email</a>
+                            <a data-field="categories.name" class="laravel-sort">Tên danh mục</a>
                         </th>
                         <th scope="col" class="text-center">
-                            <a data-field="users.phone_number" class="laravel-sort">Số điện thoại</a>
+                            <a data-field="categories.user_id" class="laravel-sort">Người thêm</a>
                         </th>
                         <th scope="col" class="text-center">
-                            <a data-field="users.role" class="laravel-sort">Chức vụ</a>
-                        </th>
-                        <th scope="col" class="text-center">
-                            <a data-field="users.active" class="laravel-sort">Trạng thái</a>
-                        </th>
-                        <th scope="col" class="text-center">
-                            <a data-field="users.created_at" class="laravel-sort">Ngày tạo</a>
+                            <a data-field="categories.created_at" class="laravel-sort">Ngày tạo</a>
                         </th>
                         <th scope="col" class="text-center">
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if(isset($users))
-                        @foreach($users as $user)
-                            <tr id="user-{{$user->id}}">
+                    @if(isset($categories))
+                        @foreach($categories as $category)
+                            <tr id="category-{{$category->id}}">
                                 <td scope="row" class="text-center">
-                                    <a href="{{route('user.show',$user->id)}}" data-toggle="tooltip" data-coreui-placement="top" data-coreui-title="Chi tiết">{!!$user->id!!}</a>
+                                    <a href="{{route('category.show',$category->id)}}" data-toggle="tooltip" data-coreui-placement="top" data-coreui-title="Chi tiết">{!!$category->id!!}</a>
                                 </td>
-                                <td class="text-center text-break"><a href="{{route('user.show',$user->id)}}" data-toggle="tooltip" data-coreui-placement="top" data-coreui-title="Chi tiết">{!!$user->fullname!!}</a></td>
-                                <td class="text-center text-break">{!!$user->email!!}</td>
-                                <td class="text-center text-break">{!!$user->phone_number!!}</td>
-                                <td class="text-center text-break">{!!$user->convertRole($user->role)!!}</td>
-                                <td class="text-center text-break">{!!$user->convertStatus($user->active)!!}</td>
-                                <td class="text-center text-break">{!!$user->formatDate($user->updated_at)!!}</td>
+                                <td class="text-center text-break"><a href="{{route('category.show',$category->id)}}" data-toggle="tooltip" data-coreui-placement="top" data-coreui-title="Chi tiết">{!!$category->code!!}</a></td>
+                                <td class="text-center text-break">{!!$category->name!!}</td>
+                                <td class="text-center text-break"><a href="{{route('user.show',$category->user->id)}}" data-toggle="tooltip" data-coreui-placement="top" data-coreui-title="Xem người thêm">{!!$category->user->fullname!!}</a></td>
+                                <td class="text-center text-break">{!!$category->formatDate($category->updated_at)!!}</td>
                                 <td class="">
                                     @if(Auth::user()->role == \App\Models\User::ROLE_ADMIN)
                                         <div class="d-flex jt-cont-sp-bw" >
-                                            <a data-toggle="tooltip"  data-coreui-placement="top" data-coreui-title="Cập nhật" href="{{route('user.edit',$user->id)}}">
+                                            <a data-toggle="tooltip"  data-coreui-placement="top" data-coreui-title="Cập nhật" href="{{route('category.edit',$category->id)}}">
                                                 <i class="p-r fas fa-edit fa-lg"></i>
                                             </a>
-                                            @if($user->active == 1)
-                                                <a data-toggle="tooltip" data-id="{{$user->id}}"  data-coreui-placement="top" data-coreui-title="Đã kích hoạt" class="user-unlock">
-                                                    <i class="icon-lock fas fa-user-unlock fa-lg mr-3 cl-green"></i>
-                                                </a>
-                                            @elseif($user->active == 0)
-                                                <a data-toggle="tooltip" data-id="{{$user->id}}"  data-coreui-placement="top" data-coreui-title="Vô hiệu hóa" class="user-lock">
-                                                    <i class="icon-user-lock fas fa-user-lock fa-lg mr-3 cl-red"></i>
-                                                </a>
-                                            @endif
-                                            @if(\App\Models\User::ROLE_ADMIN != $user->role)
-                                            <a data-toggle="tooltip" data-id="{{$user->id}}"  data-coreui-placement="top" data-coreui-title="Xóa" class="user-delete" >
+                                            <a data-toggle="tooltip" data-id="{{$category->id}}"  data-coreui-placement="top" data-coreui-title="Xóa" class="category-delete" >
                                                 <i class="fas fa-trash fa-lg cl-red"></i>
                                             </a>
-                                            @endif
                                         </div>
                                     @endif
                                 </td>
@@ -140,7 +121,7 @@
                 </tbody>
             </table>
             <div class="pagination">
-                {{ $users->links() }}
+                {{ $categories->links() }}
             </div>
         </div>
     </div>
@@ -149,10 +130,8 @@
 @section('javascript')
     <script>
         var message = {!! json_encode($message) !!};
-        var _userUrl = {!! json_encode(route('user.index')) !!};
-        var _userDeleteUrl = {!! json_encode(route('user.destroy','id')) !!};
-        var _userUnlockOrLockUrl = {!! json_encode(route('ajax.user.unlock.or.lock')) !!};
-        window.localStorage.setItem('menu-selected', 'user');
+        var _categoryUrl = {!! json_encode(route('category.index')) !!};
+        window.localStorage.setItem('menu-selected', 'category');
     </script>
-    @vite('resources/js/users/user-index.js')
+    @vite('resources/js/categories/category-index.js')
 @endsection

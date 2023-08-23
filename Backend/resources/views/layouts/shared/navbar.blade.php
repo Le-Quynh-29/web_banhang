@@ -33,6 +33,10 @@
                             <a class="nav-link" href="javascript:;" data-id="log">
                                 <i class="nav-icon fas fa-history"></i>
                                 Quản lý log</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('category.index')}}" data-id="category">
+                                <i class="nav-icon fas fa-folder"></i> 
+                                Quản lý danh mục</a></li>
                     </div>
                 </div>
             </div>

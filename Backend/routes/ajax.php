@@ -19,4 +19,9 @@ use Illuminate\Support\Facades\Route;
         Route::post('/check-login', [\App\Http\Controllers\Auth\AdminController::class, 'checkErrorLogin'])
             ->name('ajax.admin.check.login');
     });
+
+    Route::prefix('user')->group(function () {
+        Route::get('/autocomplete', [\App\Http\Controllers\Ajax\UserController::class, 'autocomplete'])
+            ->name('ajax.user.autocomplete');
+    });
 //});

@@ -1,3 +1,9 @@
+:root {
+    --background-color: #31c7ff!important;
+    --color-link: #1a90f1!important;
+    --color-white: #fff!important;
+}
+
 ::-webkit-scrollbar {
     width: 15px;
 }
@@ -57,15 +63,15 @@
     .btn-auth {
         width: 100%;
         font-size: 18px;
-        background-color: #31c7ff;
-        border: 2px solid transparent;
+        background-color: var(--background-color);
+        border: 2px solid transparent!important;
         font-weight: 500;
     }
 
     .btn-auth:hover {
-        background: none;
-        border: 2px solid #31c7ff;
-        color: #31c7ff;
+        background: none!important;
+        border: 2px solid var(--background-color);
+        color: var(--background-color);
     }
 }
 
@@ -78,16 +84,16 @@
 
     .sidebar {
         .sidebar-brand {
-            background-color: #1a90f1;
+            background-color: var(--color-link);
         }
 
         .sidebar-nav {
-            background-color: #31c7ff;
+            background-color: var(--background-color);
         }
 
         .sidebar-nav::-webkit-scrollbar {
             width: 12px;
-            background-color: #31c7ff;
+            background-color: var(--background-color);
         }
 
         .sidebar-nav::-webkit-scrollbar-thumb {
@@ -117,12 +123,12 @@
         }
 
         .sidebar-toggler {
-            background-color: #1a90f1;
+            background-color: var(--color-link);
         }
     }
 
     .header {
-        background-color: #31c7ff;
+        background-color: var(--background-color);
         padding-left: 0;
         padding-right: 0;
         padding-bottom: 0;
@@ -142,6 +148,10 @@
 
         .avatar {
             background-color: #fff;
+        }
+
+        .breadcrumb-item a {
+            color: var(--color-link) !important;
         }
     }
 
@@ -169,29 +179,53 @@
                 justify-content: space-between !important;
                 align-items: center !important;
             }
+
+            .title-error {
+                justify-content: center!important;
+            }
+
+            .table {
+                min-width: 600px;
+            }
         }
     }
 
-    //.main {
-    //    color: #000;
-    //    background-color: #ebedef;
-    //    padding-top: 0;
-    //
-    //    .subheader {
-    //        position: fixed;
-    //        z-index: 999;
-    //    }
-    //
-    //    .content {
-    //        margin-top: 1.5rem;
-    //
-    //        .card-header {
-    //            color: rgba(255, 255, 255, 1);
-    //            background-color: rgba(111, 172, 248, 1);
-    //            padding: 0.5rem 1rem;
-    //        }
-    //    }
-    //}
+    .tagify.form-control {
+        height: calc(1.6em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        margin: 0;
+    }
+
+    .tagify {
+        .tagify__input {
+            padding: 2px 0 0;
+            margin: 0;
+        }
+
+        .tagify__tag {
+            margin: 0.1rem 0 0;
+        }
+    }
+
+    .tagify {
+        .badge {
+            line-height: 1.3;
+        }
+
+        .tagify__tag {
+            div {
+                width: max-content !important;
+            }
+
+
+        }
+
+        .tagify__tag-text {
+            max-width: 300px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
 
     @media (min-width: 1366px) {
         .col-xlg {
@@ -864,7 +898,7 @@
     }
 
     .login {
-        background: #31c7ff;
+        background: var(--background-color);
         position: relative;
         width: 100%;
         display: flex;
@@ -995,7 +1029,7 @@ select {
 
 .footer {
     justify-content: center;
-    background-color: #31c7ff;
+    background-color: var(--background-color);
     color: #fff;
     border: none;
 }
@@ -1046,7 +1080,7 @@ select {
 
 /* When the checkbox is checked, add a blue background */
 .container-checkbox input:checked~.checkmark {
-    background-color: #31c7ff;
+    background-color: var(--background-color);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -1076,8 +1110,8 @@ select {
 
 .btn {
     &-primary {
-        background-color: #007bff !important;
-        border-color: #007bff !important;
+        background-color: var(--color-link)!important;
+        border-color: var(--color-link) !important;
     }
 
     &-primary:hover {
@@ -1085,9 +1119,9 @@ select {
     }
 
     &-search {
-        border-radius: 0px !important;
-        background-color: #007bff !important;
-        border-color: #007bff !important;
+        border-radius: 0 !important;
+        background-color: var(--color-link) !important;
+        border-color: var(--color-link) !important;
         color: #fff !important;
         border-top-right-radius: 4px !important;
         border-bottom-right-radius: 4px !important;
@@ -1100,7 +1134,7 @@ select {
 
 .badge-success {
     color: #fff;
-    background-color: #31c7ff;
+    background-color: var(--background-color);
     padding-bottom: 8px;
 }
 
@@ -1147,7 +1181,7 @@ select {
 
     td {
         a {
-            color: #007bff !important;
+            color: var(--color-link) !important;
         }
     }
 
@@ -1159,7 +1193,7 @@ select {
 
     thead {
         tr {
-            background-color: #31c7ff !important;
+            background-color: var(--background-color);
             color: #27ee37 !important;
         }
     }
@@ -1233,7 +1267,7 @@ select {
     }
 
     &-blue {
-        color: #007bff !important;
+        color: var(--color-link) !important;
     }
 
     &-green {
@@ -1257,7 +1291,7 @@ select {
     }
 
     &-blue {
-        color: #007bff !important;
+        color: var(--color-link) !important;
     }
 }
 
@@ -1349,9 +1383,162 @@ select {
     background-color: transparent !important;
 }
 
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
+//sort
+.asc:after {
+    content: " ↓";
+    font-size: 14px;
+}
+
+.desc:after {
+    content: " ↑";
+    font-size: 14px;
+}
+//end sort
+
+html:not([dir=rtl]) .pagination {
+    padding-left: 0;
+    overflow-x: auto;
+}
+
+.pagination {
+    .page-item .page-link {
+        color: var(--color-link) !important;
+    }
+
+    .page-item.active .page-link {
+        z-index: 3;
+        color: #fff!important;
+        background-color: var(--background-color);
+        border-color: var(--background-color);
+    }
+}
+
+//set width - height
+.h-auto {
+    height: auto !important;
+    min-height: calc(1.6em + 0.75rem + 2px);
+    max-height: 300px;
+    overflow: auto;
+}
+
+.min-h-100 {
+    min-height: 100px;
+}
+
+.width-30 {
+    width: 30px;
+}
+
+.width-50 {
+    width: 50px;
+}
+
+.width-80 {
+    width: 80px;
+}
+
+.width-100 {
+    width: 100px !important;
+}
+
+.width-120 {
+    width: 120px;
+}
+
+.width-150 {
+    width: 150px;
+}
+
+.width-170 {
+    width: 170px;
+}
+
+.width-300 {
+    width: 300px;
+}
+
+.width-500 {
+    width: 500px;
+}
+
+.height-20 {
+    height: 20px;
+}
+
+.min-width-80 {
+    min-width: 80px;
+}
+
+.min-width-100 {
+    min-width: 100px;
+}
+
+.min-width-250 {
+    min-width: 250px;
+}
+
+.min-width-300 {
+    min-width: 300px;
+}
+
+.max-width-50 {
+    max-width: 50px;
+}
+
+.max-width-80 {
+    max-width: 80px;
+}
+
+.max-width-100 {
+    max-width: 100px;
+}
+
+.max-width-150 {
+    max-width: 150px;
+}
+
+.max-width-200 {
+    max-width: 200px;
+}
+
+.max-width-250 {
+    max-width: 250px;
+}
+
+.max-width-300 {
+    max-width: 300px;
+}
+
+.max-width-400 {
+    max-width: 400px;
+}
+
+.min-height-100 {
+    min-height: 100px;
+}
+
+.min-height-400 {
+    min-height: 400px;
+}
+
+.max-height-500 {
+    max-height: 500px;
+}
+//end set width - height
+
+.btn-primary {
+    background-color: var(--background-color)!important;
+    border: 1px solid transparent!important;
+}
+
+.btn-primary:hover {
+    background: none!important;
+    border: 1px solid var(--background-color)!important;
+    color: var(--background-color)!important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: var(--cui-dropdown-link-active-color);
+    text-decoration: none;
+    background-color: var(--background-color)!important;
 }

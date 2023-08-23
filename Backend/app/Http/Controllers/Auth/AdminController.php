@@ -33,7 +33,6 @@ class AdminController extends Controller
         $auth = [
             'email' => $request->email,
             'password' => $request->password,
-            'active' => User::ACTIVE
         ];
         $remember = $request->remember == 'on';
         if (Auth::attempt($auth, $remember)) {
@@ -58,7 +57,12 @@ class AdminController extends Controller
         $user = User::query()->where('email', $request->email)
             ->where('password_raw', $request->password)->first();
         if (is_null($user)) {
-            return response()->json('Thông tin đăng nhập không chính xác hoặc tài khoản đã bị vô hiệu hóa.', 401);
+            return response()->json('Thông tin đăng nhập không chính xác.', 401);
+        }
+        if (!in_array($user->role, [User::ROLE_ADMIN, User::ROLE_CTV])) {
+            return response()->json('Không có quyền truy cập.', 401);
+        } elseif ($user->active == User::NO_ACTIVE) {
+            return response()->json('Tài khoản bị vô hiệu hóa.', 401);
         }
         return response()->json('Đăng nhập thành công.', 200);
     }

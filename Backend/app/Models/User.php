@@ -21,7 +21,8 @@ class User extends Authenticatable
 
     //role
     public const ROLE_ADMIN = 1;
-    public const ROLE_CUSTOMER = 2;
+    public const ROLE_CTV = 2;
+    public const ROLE_CUSTOMER = 3;
 
     //active
     public const NO_ACTIVE = 0;

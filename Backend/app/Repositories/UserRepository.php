@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Models\User;
 use App\Repositories\Support\AbstractRepository;
 use Illuminate\Container\Container as App;
 
@@ -43,7 +44,7 @@ class UserRepository extends AbstractRepository
         if (!empty($role)) {
             if (in_array((int)$role,[$this->model::ROLE_ADMIN,$this->model::ROLE_CUSTOMER])) {
                 $data = $data->where('role', '=', $role);
-            } 
+            }
         }
 
         if (!empty($searchBy)) {
@@ -59,5 +60,28 @@ class UserRepository extends AbstractRepository
         }
 
         return $data->paginate(self::PAGE_SIZE);
+    }
+
+    /**
+     * user autocomplete
+     *
+     * @param string $term
+     * @return mixed
+     */
+    public function autocomplete($term)
+    {
+        $users = User::where('username', 'LIKE', '%' . $term . '%');
+
+        $users = $users->limit(20)->get();
+
+        $arr = [];
+        foreach ($users as $user) {
+            $userO = new \stdClass();
+            $userO->id = $user->id;
+            $userO->value = html_entity_decode($user->username);
+            $arr[] = $userO;
+        }
+
+        return $arr;
     }
 }

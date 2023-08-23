@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\User;
 use App\Repositories\Support\AbstractRepository;
 use Illuminate\Container\Container as App;
 use Illuminate\Support\Facades\Hash;
@@ -21,14 +22,14 @@ class UserRepository extends AbstractRepository
 
     public function listUser($request, $toArray = false, $with = [])
     {
-        $orderBy      = is_null($request->get('order_by')) ? "id" : $request->get('order_by');
-        $orderArr     = explode(',', $orderBy);
-        $sortBy       = in_array($request->get('sort_by'), ['asc', 'desc']) ? $request->get('sort_by') : 'desc';
-        $searchBy     = $request->get('search_by');
-        $searchText   = $request->get('search_text');
-        $active       = $request->get('active');
-        $role         = $request->get('role');
-        $data         = $this->model::select('*')->distinct();
+        $orderBy = is_null($request->get('order_by')) ? "id" : $request->get('order_by');
+        $orderArr = explode(',', $orderBy);
+        $sortBy = in_array($request->get('sort_by'), ['asc', 'desc']) ? $request->get('sort_by') : 'desc';
+        $searchBy = $request->get('search_by');
+        $searchText = $request->get('search_text');
+        $active = $request->get('active');
+        $role = $request->get('role');
+        $data = $this->model::select('*')->distinct();
         if (sizeof($with) > 0) {
             $withParams = '';
             foreach ($with as $key => $value) {
@@ -71,7 +72,7 @@ class UserRepository extends AbstractRepository
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
             $pathInfo = uploadFileHepler($imageFile, 'images');
-            $image = 'storage/'.$pathInfo;
+            $image = 'storage/' . $pathInfo;
         }
         $event = "Thêm mới";
         $data = [
@@ -88,13 +89,14 @@ class UserRepository extends AbstractRepository
             'image' => $image,
         ];
         $this->model::create($data);
-        createLog($event,$data);
+        createLog($event, $data);
     }
 
-    public function update($data, $id, $attribute = "id"){
+    public function update($data, $id, $attribute = "id")
+    {
         $user = $this->model::findOrFail($id);
         $validator = $rules = $messages = $attributes = $datas = [];
-        if($data['password']){
+        if ($data['password']) {
             $validator['password'] = $data['password'];
             $rules['password'] = 'required|min:6|max:20|regex:/^[^\s]+$/';
             $messages['password.required'] = ':attribute không được để trống.';
@@ -105,7 +107,7 @@ class UserRepository extends AbstractRepository
         }
         $validator = Validator::make($validator, $rules, $messages, $attributes);
         if ($validator->fails()) {
-            return [false,$validator];
+            return [false, $validator];
         } else {
             $datas = [
                 'username' => $data['username'],
@@ -117,32 +119,56 @@ class UserRepository extends AbstractRepository
                 'role' => $data['role'],
                 'active' => $data['active'],
             ];
-            if($data['password']){
+            if ($data['password']) {
                 $datas['password'] = Hash::make($data['password']);
                 $datas['password_raw'] = $data['password'];
             }
-            if(isset($data['image'])){
+            if (isset($data['image'])) {
                 $user->image ? deleteFileHepler($user->image) : '';
                 $imageFile = $data['image'];
                 $pathInfo = uploadFileHepler($imageFile, 'images');
-                $image = 'storage/'.$pathInfo;
+                $image = 'storage/' . $pathInfo;
                 $datas['image'] = $image;
             }
             $user->update($datas);
             $event = "Cập nhật";
-            createLog($event,$datas);
-      
+            createLog($event, $datas);
+
         }
         return [true];
     }
 
-    public function updateActive($user,$active){
+    public function updateActive($user, $active)
+    {
         $datas = [
             'active' => $active,
         ];
         $user->update($datas);
         $event = "Chuyển trạng thái tài khoản";
-        createLog($event,$datas);
+        createLog($event, $datas);
         return $user;
+    }
+
+    /**
+     * user autocomplete
+     *
+     * @param string $term
+     * @return mixed
+     */
+    public function autocomplete($term)
+    {
+        $users = User::where('username', 'LIKE', '%' . $term . '%');
+
+        $users = $users->limit(20)->get();
+
+        $arr = [];
+        foreach ($users as $user) {
+            $userO = new \stdClass();
+            $userO->id = $user->id;
+            $userO->value = html_entity_decode($user->username);
+            $arr[] = $userO;
+        }
+
+        return $arr;
     }
 }

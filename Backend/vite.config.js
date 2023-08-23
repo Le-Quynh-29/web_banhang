@@ -13,10 +13,16 @@ export default defineConfig({
                 'resources/js/jquery-validation.js',
                 'resources/js/login.js',
                 'resources/js/navbar.js',
+                'resources/js/tagify.js',
+                'resources/sass/tagify.scss',
                 //User
                 'resources/js/users/userIndex.js',
                 'resources/js/users/userCreate.js',
                 'resources/js/users/userEdit.js',
+
+                //log
+                'resources/js/log/log.js',
+                'resources/js/log/show.js',
             ],
             refresh: true,
         }),
@@ -30,6 +36,7 @@ export default defineConfig({
             '~js-url': path.resolve(__dirname, 'node_modules/js-url'),
             '~jquery-validation': path.resolve(__dirname, 'node_modules/jquery-validation'),
             '~toastr': path.resolve(__dirname, 'node_modules/toastr'),
+            '~tagify': path.resolve(__dirname, 'node_modules/@yaireo/tagify'),
         }
     },
     module: {

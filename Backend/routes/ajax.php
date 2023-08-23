@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
     Route::prefix('user')->group(function () {
         Route::post('/unlock-or-lock', [\App\Http\Controllers\UserController::class, 'unlockOrlock'])->name('ajax.user.unlock.or.lock');
+        Route::get('/autocomplete', [\App\Http\Controllers\Ajax\UserController::class, 'autocomplete'])
+            ->name('ajax.user.autocomplete');
     });
 });
 

@@ -10,7 +10,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" id="action">Có</button>
-          <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Không</button>
+          <button type="button" class="btn btn-secondary" id="none-action" data-coreui-dismiss="modal">Không</button>
         </div>
       </div>
     </div>

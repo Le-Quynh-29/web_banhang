@@ -59,12 +59,12 @@
                     @forelse($logs as $log)
                         <tr>
                             <td class="text-center width-50">
-                                <a href="{{ route('log.show', $log->id) }}" data-toggle="tooltip"
+                                <a class="cl-blue" href="{{ route('log.show', $log->id) }}" data-toggle="tooltip"
                                    data-coreui-placement="bottom"
                                    data-coreui-original-title="Chi tiết">{!!$log->id!!}</a>
                             </td>
                             <td class="text-break min-width-100 max-width-400">
-                                <a href="{{ route('log.show', $log->id) }}">{!!$log->event!!}</a>
+                                <a class="cl-blue" href="{{ route('log.show', $log->id) }}">{!!$log->event!!}</a>
                             </td>
                             <td class="text-center text-break max-width-100">{!!$log->user?->username!!}</td>
                             <td class="text-break max-width-400">{!!$log->user_agent!!}</td>

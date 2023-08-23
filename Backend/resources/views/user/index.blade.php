@@ -123,12 +123,14 @@
                     @foreach($users as $user)
                         <tr id="user-{{$user->id}}">
                             <td scope="row" class="text-center">
-                                <a href="{{route('user.show',$user->id)}}" data-toggle="tooltip"
+                                <a class="cl-blue" href="{{route('user.show',$user->id)}}" data-toggle="tooltip"
                                    data-coreui-placement="top" data-coreui-title="Chi tiết">{!!$user->id!!}</a>
                             </td>
-                            <td class="text-center text-break"><a href="{{route('user.show',$user->id)}}"
-                                                                  data-toggle="tooltip" data-coreui-placement="top"
-                                                                  data-coreui-title="Chi tiết">{!!$user->fullname!!}</a>
+                            <td class="text-center text-break">
+                                <a class="cl-blue" href="{{route('user.show',$user->id)}}"
+                                   data-toggle="tooltip" data-coreui-placement="top"
+                                   data-coreui-title="Chi tiết">{!!$user->fullname!!}
+                                </a>
                             </td>
                             <td class="text-center text-break">{!!$user->email!!}</td>
                             <td class="text-center text-break">{!!$user->phone_number!!}</td>
@@ -138,7 +140,7 @@
                             <td class="">
                                 @if(Auth::user()->role == \App\Models\User::ROLE_ADMIN)
                                     <div class="d-flex jt-cont-sp-bw">
-                                        <a data-toggle="tooltip" data-coreui-placement="top"
+                                        <a class="cl-blue" data-toggle="tooltip" data-coreui-placement="top"
                                            data-coreui-title="Cập nhật" href="{{route('user.edit',$user->id)}}">
                                             <i class="p-r fas fa-edit fa-lg"></i>
                                         </a>

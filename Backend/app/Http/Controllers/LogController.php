@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Log;
 use App\Repositories\LogRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class LogController extends Controller
 {
@@ -20,6 +21,9 @@ class LogController extends Controller
      */
     public function index(Request $request)
     {
+        if (! Gate::allows('pmss--log-index')) {
+            abort(403);
+        }
         $logs = $this->logRepo->getListLog($request, false);
         $user = $request->get('search_user_id');
         $userTagify = json_encode([]);
@@ -36,6 +40,9 @@ class LogController extends Controller
      */
     public function show(string $id)
     {
+        if (! Gate::allows('pmss--log-detail')) {
+            abort(403);
+        }
         $log = $this->logRepo->find($id);
         if (is_null($log)) {
             abort(404);

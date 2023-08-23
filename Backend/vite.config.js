@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/sass/app.scss',
                 'resources/sass/user.scss',
                 'resources/js/app.js',
+                'resources/js/tooltips.js',
                 'resources/js/jquery-validation.js',
                 'resources/js/login.js',
                 'resources/js/navbar.js',
@@ -17,6 +18,7 @@ export default defineConfig({
                 //User
                 'resources/js/users/userIndex.js',
                 'resources/js/users/userCreate.js',
+                'resources/js/users/userEdit.js',
 
                 //log
                 'resources/js/log/log.js',

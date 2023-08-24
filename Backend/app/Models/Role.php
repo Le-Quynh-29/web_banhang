@@ -23,4 +23,15 @@ class Role extends Model
     public function permissions() {
         return $this->belongsToMany(Permission::class, 'role_permission');
     }
+
+    public function checkDisablePermission($permissionId)
+    {
+        $class = '';
+        if ($this->id == User::ROLE_CUSTOMER && !in_array($permissionId, Permission::PERMISSION_ROLE_CUSTOMER)) {
+            $class = 'disable-checkbox';
+        } elseif ($this->id != User::ROLE_CUSTOMER && in_array($permissionId, Permission::PERMISSION_ROLE_CUSTOMER)) {
+            $class = 'disable-checkbox';
+        }
+        return $class;
+    }
 }

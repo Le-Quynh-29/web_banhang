@@ -22,18 +22,16 @@
                                 <div class="form-group mt-3 mb-3 pl-5 pr-5">
                                     <label class="form-label font-weight-bold" for="email">Email</label>
                                     <input id="email" class="form-control" type="text" placeholder="Email"
-                                           name="email"  value="" minlength="8" maxlength="20" autofocus>
+                                           name="email"  value="" autofocus>
                                 </div>
                                 <div class="form-group mb-3 pl-5 pr-5">
                                     <label class="form-label font-weight-bold" for="password">Mật khẩu</label>
                                     <input id="password" class="form-control" type="password" placeholder="Mật khẩu"
-                                           name="password" minlength="8" maxlength="20" autocomplete>
+                                           name="password" autocomplete>
                                 </div>
-                                <div class="input-group auth-action">
-                                    <label class="container-checkbox">Lưu đăng nhập
-                                        <input type="checkbox" name="remember">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="remember" type="checkbox" id="remember">
+                                    <label class="form-check-label" for="remember">Lưu đăng nhập</label>
                                 </div>
                                 <div class="ml-auto pt-4 pl-5 pr-5 float-right ">
                                     <button class="btn btn-primary btn-auth" type="submit" id="submit-form-login">Đăng nhập</button>

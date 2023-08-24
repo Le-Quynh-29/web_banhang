@@ -185,7 +185,7 @@
                 justify-content: center!important;
             }
 
-            .table {
+            .table-responsive .table {
                 min-width: 600px;
             }
         }
@@ -1039,76 +1039,6 @@ select {
     font-weight: 700 !important
 }
 
-//checkbox
-/* The container */
-.container-checkbox {
-    display: block;
-    position: relative;
-    padding-left: 28px;
-    cursor: pointer;
-    font-size: 16px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    font-weight: 500;
-}
-
-/* Hide the browser's default checkbox */
-.container-checkbox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #fff;
-    border: 1px solid #d8dbe0;
-}
-
-/* On mouse-over, add a grey background color */
-.container-checkbox:hover input~.checkmark {
-    background-color: #eee;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container-checkbox input:checked~.checkmark {
-    background-color: var(--background-color);
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-.container-checkbox input:checked~.checkmark:after {
-    display: block;
-}
-
-/* Style the checkmark/indicator */
-.container-checkbox .checkmark:after {
-    left: 6px;
-    top: 2px;
-    width: 6px;
-    height: 12px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
 .btn {
     &-primary {
         background-color: var(--color-link)!important;
@@ -1180,11 +1110,11 @@ select {
         background-color: transparent !important;
     }
 
-    td {
-        a {
-            color: var(--color-link) !important;
-        }
-    }
+    //td {
+    //    a {
+    //        color: var(--color-link) !important;
+    //    }
+    //}
 
     th {
         a {
@@ -1546,6 +1476,7 @@ html:not([dir=rtl]) .pagination {
 .btn-primary {
     background-color: var(--background-color)!important;
     border: 1px solid transparent!important;
+    color: var(--color-white)!important;
 }
 
 .btn-primary:hover {
@@ -1558,4 +1489,26 @@ html:not([dir=rtl]) .pagination {
     color: var(--cui-dropdown-link-active-color);
     text-decoration: none;
     background-color: var(--background-color)!important;
+}
+
+.per-margin {
+    margin-bottom: 50px;
+}
+
+.form-check-input:checked {
+    background-color: var(--background-color)!important;
+    border-color: var(--background-color)!important;
+}
+
+.form-check.disable-checkbox {
+    display: block!important;
+    pointer-events: none!important;
+}
+
+.form-check.disable-checkbox .form-check-input {
+    background-color: #ededed!important;
+}
+
+.ov-hidden {
+    overflow: hidden!important;
 }

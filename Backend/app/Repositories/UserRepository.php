@@ -71,10 +71,11 @@ class UserRepository extends AbstractRepository
         $image = '';
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
-            $pathInfo = uploadFileHepler($imageFile, 'images');
-            $image = 'storage/' . $pathInfo;
+            $pathInfo = uploadFileHepler($imageFile, 'users');
+            $image = 'storage/'.$pathInfo;
+
         }
-        $event = "Thêm mới";
+        $event = "Thêm mới người dùng";
         $data = [
             'username' => $request->username,
             'fullname' => $request->fullname,
@@ -131,9 +132,8 @@ class UserRepository extends AbstractRepository
                 $datas['image'] = $image;
             }
             $user->update($datas);
-            $event = "Cập nhật";
-            createLog($event, $datas);
-
+            $event = "Cập nhật người dùng";
+            createLog($event,$datas);
         }
         return [true];
     }

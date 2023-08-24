@@ -127,7 +127,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <a class="btn btn-primary" href="{{route('user.index')}}">Trở về</a>
+            <a class="btn btn-primary" href="{{ url()->previous() }}">Trở về</a>
         </div>
     </div>
 @endsection

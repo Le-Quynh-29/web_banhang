@@ -28,19 +28,12 @@
                 </div>
                 <div class="col-12">
                     <select class="form-select" name="search_by" id="search_by">
-                        <option value="username" <?= request()->search_by == 'username' ? 'selected' : '' ?>>Tên tài
-                            khoản
-                        </option>
-                        <option value="fullname" <?= request()->search_by == 'fullname' ? 'selected' : '' ?>>Tên người
-                            dùng
-                        </option>
+                        <option value="username" <?= request()->search_by == 'username' ? 'selected' : '' ?>>Tên đăng nhập</option>
+                        <option value="fullname" <?= request()->search_by == 'fullname' ? 'selected' : '' ?>>Tên người dùng</option>
                         <option value="email" <?= request()->search_by == 'email' ? 'selected' : '' ?>>Email</option>
-                        <option value="phone_number" <?= request()->search_by == 'phone_number' ? 'selected' : '' ?>>Số
-                            điện thoại
-                        </option>
+                        <option value="phone_number" <?= request()->search_by == 'phone_number' ? 'selected' : '' ?>>Số điện thoại</option>
                         <option value="role" <?= request()->search_by == 'role' ? 'selected' : '' ?>>Vai trò</option>
-                        <option value="active" <?= request()->search_by == 'active' ? 'selected' : '' ?>>Trạng thái
-                        </option>
+                        <option value="active" <?= request()->search_by == 'active' ? 'selected' : '' ?>>Trạng thái </option>
                     </select>
                 </div>
                 <div class="col-12">
@@ -100,6 +93,9 @@
                         <a data-field="users.fullname" class="laravel-sort">Họ và Tên</a>
                     </th>
                     <th scope="col" class="text-center">
+                        <a data-field="users.username" class="laravel-sort">Tên đăng nhập</a>
+                    </th>
+                    <th scope="col" class="text-center">
                         <a data-field="users.email" class="laravel-sort">Email</a>
                     </th>
                     <th scope="col" class="text-center">
@@ -119,8 +115,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if(isset($users))
-                    @foreach($users as $user)
+                    @forelse($users as $user)
                         <tr id="user-{{$user->id}}">
                             <td scope="row" class="text-center">
                                 <a class="cl-blue" href="{{route('user.show',$user->id)}}" data-toggle="tooltip"
@@ -132,6 +127,7 @@
                                    data-coreui-title="Chi tiết">{!!$user->fullname!!}
                                 </a>
                             </td>
+                            <td class="text-center text-break">{!!$user->username!!}</td>
                             <td class="text-center text-break">{!!$user->email!!}</td>
                             <td class="text-center text-break">{!!$user->phone_number!!}</td>
                             <td class="text-center text-break">{!!$user->convertRole($user->role)!!}</td>
@@ -165,12 +161,11 @@
                                 @endif
                             </td>
                         </tr>
-                    @endforeach
-                @else
+                    @empty
                     <tr>
                         <td colspan="8">Không có dữ liệu</td>
                     </tr>
-                @endif
+                    @endforelse
                 </tbody>
             </table>
             <div class="pagination">
@@ -188,5 +183,5 @@
         var _userUnlockOrLockUrl = {!! json_encode(route('ajax.user.unlock.or.lock')) !!};
         window.localStorage.setItem('menu-selected', 'user');
     </script>
-    @vite('resources/js/users/userIndex.js')
+    @vite('resources/js/user/index.js')
 @endsection

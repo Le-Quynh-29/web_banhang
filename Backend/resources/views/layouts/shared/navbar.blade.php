@@ -44,6 +44,13 @@
                                 </a>
                             </li>
                         @endif
+                        @if (Gate::allows('pmss--category-index'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('category.index') }}" data-id="log">
+                                <i class="nav-icon fas fa-folder"></i>
+                                Quản lý danh mục</a>
+                        </li>
+                    @endif
                     </div>
                 </div>
             </div>

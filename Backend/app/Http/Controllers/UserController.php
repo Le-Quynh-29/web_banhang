@@ -38,7 +38,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $user =  $this->userRepository->store($request);
+        $this->userRepository->store($request);
         $message = 'Thêm mới người dùng ' . $request->fullname . ' thành công';
         return redirect()->route('user.index')->with('message', $message);
     }
@@ -48,7 +48,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user =  $this->userRepository->find($id);
+        $user = $this->userRepository->find($id);
         return view('user.show', compact('user'));
     }
 
@@ -57,7 +57,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user =  $this->userRepository->find($id);
+        $user = $this->userRepository->find($id);
         return view('user.edit', compact('user'));
     }
 

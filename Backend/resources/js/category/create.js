@@ -1,18 +1,18 @@
 (function ($) {
     'use strict';
 
-    var User = function User(element, options, cb) {
-        var user = this;
+    var Category = function Category(element, options, cb) {
+        var category = this;
         this.element = element;
         this.$element = $(element);
         this.appUrl = _appUrl;
         this.token = _token;
         this.$element.on('input', function () {
-            user.initValidors();
+            category.initValidors();
         });
     };
 
-    User.prototype = {
+    Category.prototype = {
         _init: function _init() {
             this.ajaxSetup();
             this.init();
@@ -52,13 +52,13 @@
     };
 
     /* Execute main function */
-    $.fn.user = function (options, cb) {
+    $.fn.category = function (options, cb) {
         this.each(function () {
             var el = $(this);
-            if (!el.data('user')) {
-                var user = new User(el, options, cb);
-                el.data('user', User);
-                user._init();
+            if (!el.data('category')) {
+                var category = new Category(el, options, cb);
+                el.data('category', Category);
+                category._init();
             }
         });
         return this;
@@ -66,5 +66,5 @@
 })(jQuery);
 
 $(document).ready(function () {
-    $('body').user();
+    $('body').category();
 });

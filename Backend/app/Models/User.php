@@ -71,8 +71,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function formatDate($date)
-    {
+    public function formatDate($date){
         if (is_null($date)) {
             $timeFormat = null;
         } else {
@@ -103,6 +102,7 @@ class User extends Authenticatable
         }
         return $role;
     }
+
     public function convertStatus($status){
         switch ($status) {
             case self::ACTIVE:
@@ -117,6 +117,7 @@ class User extends Authenticatable
         }
         return $status;
     }
+
     public function convertGender($gender){
         switch ($gender) {
             case self::FEMALE:
@@ -135,4 +136,7 @@ class User extends Authenticatable
         return $gender;
     }
 
+    public function categories(){
+        return $this->hasMany(Category::class, 'user_id');
+    }
 }

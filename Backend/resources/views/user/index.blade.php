@@ -36,7 +36,7 @@
                         <option value="active" <?= request()->search_by == 'active' ? 'selected' : '' ?>>Trạng thái </option>
                     </select>
                 </div>
-                <div class="col-12">
+                <div class="col-xlg-2 col-xl-4 col-sm-12">
                     <div class="input-group input-option">
                         <input type="text" name="search_text" id="search-text" value="<?= request()->search_text?>"
                                class="form-control <?= (request()->active == null && request()->role == null) ? 'active' : '' ?>"

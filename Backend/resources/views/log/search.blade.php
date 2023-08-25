@@ -32,8 +32,9 @@
             <label for="search-by-keyword">Tìm kiếm theo</label>
             <select class="form-control" name="search_by" id="search-by-keyword">
                 @foreach ($fields as $key => $field)
-                    <option
-                        value="{{ $key }}" {!! app('request')->input('search_by') == $key ? 'selected="selected"' : '' !!}>{!! $field !!}</option>
+                    <option value="{{ $key }}" {!! app('request')->input('search_by') == $key ? 'selected="selected"' : '' !!}>
+                        {!! $field !!}
+                    </option>
                 @endforeach
             </select>
         </div>
@@ -41,10 +42,12 @@
         <div class="col-xlg-4 col-xl-4 col-sm-8">
             <div class="form-group">
                 <label>Từ khóa</label>
-                <div class="input-group">
-                    <input class="form-control" name="search_text" id="search-text" placeholder="{{ __('Từ khóa') }}"
+                <div class="input-group input-option">
+                    <input class="form-control <?= request()->search_by != null && request()->search_by != 'event' ? 'active' : '' ?>"
+                           name="search_text" id="search-text" placeholder="{{ __('Từ khóa') }}"
                            value="{!! app('request')->input('search_text') !!}"/>
-                    <select class="form-control" name="module" id="module">
+                    <select name="module" id="module"
+                            class="form-control <?= request()->search_by == 'event' || request()->search_by == null ? 'active' : '' ?>">
                         <option value="" {!! app('request')->input('module') == "" ? 'selected="selected"' : '' !!}>
                             {{ __('Tất cả') }}
                         </option>

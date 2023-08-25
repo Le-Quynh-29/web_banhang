@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <a href="{{ url()->previous() }}" class="btn btn-primary" type="reset">
+            <a href="{{ route('log.index') }}" class="btn btn-primary" type="reset">
                 {{ __('Quay lại') }}
             </a>
         </div>

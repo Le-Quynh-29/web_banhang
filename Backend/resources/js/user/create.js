@@ -1,24 +1,19 @@
 (function ($) {
     'use strict';
 
-    var User = function User(element, options, cb) {
-        var user = this;
+    var AppUserCreate = function AppUserCreate(element, options, cb) {
+        var appUserCreate = this;
         this.element = element;
         this.$element = $(element);
         this.appUrl = _appUrl;
         this.token = _token;
-        this.$element.on('input', function () {
-            user.initValidors();
-        });
-        this.$element.on('change', '#image', function () {
-            user.validateImage();
-        });
     };
 
-    User.prototype = {
+    AppUserCreate.prototype = {
         _init: function _init() {
             this.ajaxSetup();
-            this.init();
+            this.initValidation();
+            this.initUploadPreview();
         },
         ajaxSetup: function () {
             $.ajaxSetup({
@@ -27,62 +22,91 @@
                 }
             });
         },
-        init: function () {
-            this.initUploadImage();
-            this.initValidors();
+        initUploadPreview: function () {
+            $(".image-preview-wrapper").uploadPreview();
         },
-        initUploadImage: function () {
-            $(document).ready(function () {
-                $('#image').change(function () {
-                    $('#blah').show();
-                    const file = $(this)[0].files;
-                    if (file[0]) {
-                        $('#blah').attr('src', URL.createObjectURL(file[0]));
-                    }
-                });
-            });
-        },
-        initValidors: function () {
-            let seft = this;
+        initValidation: function () {
+            let el = this;
+
+            jQuery.validator.addMethod("regex", function (value, element, regexp) {
+                let regex = new RegExp(regexp);
+                return this.optional(element) || regex.test(value);
+            }, "Please check your input.");
+
             $("#form-create").validate({
-                validClass: "is-valid",
-                invalidHandler: function () {
-                    seft.validateImage();
+                onfocusout: function (element, event) {
+                    var $element = $(element);
+                    if ($element.attr("id") == "username" || $element.attr("id") == "fullname" ||
+                        $element.attr("id") == "email" || $element.attr("id") == "phone_number" ||
+                        $element.attr("id") == "password") {
+                        $element.val($.trim($element.val()));
+                        $element.valid();
+                    }
                 },
+                onkeyup: false,
+                onclick: false,
                 rules: {
                     username: {
                         required: true,
-                        minlength: 8,
                         maxlength: 20,
                         regex: /^[A-Za-z0-9\-_@]+$/,
+                        remote: {
+                            url: el.appUrl + '/ajax/validator/unique',
+                            type: 'POST',
+                            data: {
+                                table: function() {
+                                    return 'users';
+                                },
+                                column: function() {
+                                    return 'username';
+                                },
+                                text_check: function() {
+                                    return $('#username').val();
+                                }
+                            },
+                            dataType: 'json',
+                            dataFilter: function(res) {
+                                let result = JSON.parse(res);
+                                let jsonStr = JSON.stringify(result.data);
+                                return jsonStr;
+                            }
+                        }
                     },
                     fullname: {
                         required: true,
                         maxlength: 50,
                     },
-                    birthday: {
-                        required: true,
-                    },
                     email: {
                         required: true,
                         email: true,
                         maxlength: 255,
-                    },
-                    gender: {
-                        required: true,
+                        remote: {
+                            url: el.appUrl + '/ajax/validator/unique',
+                            type: 'POST',
+                            data: {
+                                table: function() {
+                                    return 'users';
+                                },
+                                column: function() {
+                                    return 'email';
+                                },
+                                text_check: function() {
+                                    return $('#email').val();
+                                }
+                            },
+                            dataType: 'json',
+                            dataFilter: function(res) {
+                                let result = JSON.parse(res);
+                                let jsonStr = JSON.stringify(result.data);
+                                return jsonStr;
+                            }
+                        }
                     },
                     phone_number: {
                         required: true,
                         minlength: 8,
                         maxlength: 20,
-                        regex: /^(?:\+?\d{1,3}\s?)?[0-9\-]+$/,
-                    },
-                    role: {
-                        required: true,
-                        in: [1, 2],
-                    },
-                    active: {
-                        required: true,
+                        regex: /^(\+84|84|0|02?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/,
                     },
                     password: {
                         required: true,
@@ -90,93 +114,55 @@
                         maxlength: 20,
                         regex: /^[^\s]+$/,
                     },
-                    image: {
-                        required: true,
-                    },
                 },
                 messages: {
                     username: {
                         required: "Tên đăng nhập không được để trống.",
-                        minlength: "Tên đăng nhập phải có ít nhất {0} ký tự.",
                         maxlength: "Tên đăng nhập không được vượt quá {0} ký tự.",
                         regex: "Tên đăng nhập chỉ chứa các ký tự a-z, A-Z, 0-9, -_ và không chứa các ký tự đặc biệt.",
+                        remote: "Tên đăng nhập đã tồn tại.",
                     },
                     fullname: {
                         required: "Họ và tên không được để trống.",
                         maxlength: "Họ và tên không được vượt quá {0} ký tự.",
                     },
-                    birthday: {
-                        required: "Ngày sinh không được để trống.",
-                    },
                     email: {
                         required: "Email không được để trống.",
                         email: "Email phải có định dạng hợp lệ.",
                         maxlength: "Email không được vượt quá {0} ký tự.",
+                        remote: "Email đã được đăng ký.",
                     },
                     phone_number: {
                         required: "Số điện thoại không được để trống.",
                         minlength: "Số điện thoại phải có ít nhất {0} ký tự.",
                         maxlength: "Số điện thoại không được vượt quá {0} ký tự.",
-                        regex: "Số điện thoại phải đúng định dạng.",
-                    },
-                    role: {
-                        required: "Vai trò không được để trống.",
-                        in: "Vai trò không thuộc các quyền được cấp phép.",
-                    },
-                    active: {
-                        required: "Trạng thái không được để trống.",
+                        regex: "Số điện thoại không tồn tại.",
                     },
                     password: {
                         required: "Mật khẩu không được để trống.",
                         minlength: "Mật khẩu phải có ít nhất {0} ký tự.",
                         maxlength: "Mật khẩu không được vượt quá {0} ký tự.",
+                        regex: "Mật khẩu không được chứa ký tự tiếng Việt và dấu cách.",
                     },
-                    image: {
-                        required: "Ảnh đại diện không được để trống.",
-                    },
+                },
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element);
                 },
                 submitHandler: function (form) {
                     form.submit();
-                    return;
                 }
             });
-            $.validator.addMethod(
-                "regex",
-                function (value, element, regexp) {
-                    let regex = new RegExp(regexp);
-                    return this.optional(element) || regex.test(value);
-                },
-                "Please check your input."
-            );
-            $.validator.addMethod("in", function (value, element, array) {
-                return this.optional(element) || $.inArray(parseInt(value), array) != -1;
-            }, "Data provided is not in status");
         },
-        validateImage: function () {
-            let image = $('#image');
-            if (image.val()) {
-                $('#image-validate').addClass('d-none');
-                image.removeClass('is-invalid');
-                $('#image-avt').removeClass('form-control is-invalid');
-                $('#image-avt').addClass('form-control is-valid');
-                $('#label-avt').removeClass('is-invalid');
-            } else {
-                $('#label-avt').addClass('is-invalid');
-                $('#image-avt').addClass('form-control is-invalid');
-                $('#image-validate').removeClass('d-none').text('Ảnh đại diện không được để trống.');
-                image.addClass('is-invalid');
-            }
-        }
     };
 
     /* Execute main function */
-    $.fn.user = function (options, cb) {
+    $.fn.appUserCreate = function (options, cb) {
         this.each(function () {
             var el = $(this);
-            if (!el.data('user')) {
-                var user = new User(el, options, cb);
-                el.data('user', User);
-                user._init();
+            if (!el.data('appUserCreate')) {
+                var appUserCreate = new AppUserCreate(el, options, cb);
+                el.data('appUserCreate', AppUserCreate);
+                appUserCreate._init();
             }
         });
         return this;
@@ -184,5 +170,5 @@
 })(jQuery);
 
 $(document).ready(function () {
-    $('body').user();
+    $('body').appUserCreate();
 });

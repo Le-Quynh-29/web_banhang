@@ -30,6 +30,9 @@ class User extends Authenticatable
     public const NO_ACTIVE = 0;
     public const ACTIVE = 1;
 
+    //image
+    public const IMAGE_DEFAULT = 'image/user-default.png';
+
     /**
      * The attributes that are mass assignable.
      *

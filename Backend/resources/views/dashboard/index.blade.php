@@ -18,3 +18,9 @@
         </div>
     </div>
 @endsection
+
+@section('javascript')
+    <script>
+        window.localStorage.setItem('menu-selected', 'dashboard');
+    </script>
+@endsection

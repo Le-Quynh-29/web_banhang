@@ -4,12 +4,16 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Repositories\Support\AbstractRepository;
+use App\Traits\SaveLog;
+use App\Traits\ShopStorage;
 use Illuminate\Container\Container as App;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class UserRepository extends AbstractRepository
 {
+    use SaveLog, ShopStorage;
+
     public function model()
     {
         return 'App\Models\User';
@@ -20,6 +24,14 @@ class UserRepository extends AbstractRepository
         parent::__construct($app);
     }
 
+    /**
+     * Get list user
+     *
+     * @param Request $request
+     * @param bool $toArray
+     * @param array $with
+     * @return mixed
+     */
     public function listUser($request, $toArray = false, $with = [])
     {
         $orderBy = is_null($request->get('order_by')) ? "id" : $request->get('order_by');
@@ -63,18 +75,26 @@ class UserRepository extends AbstractRepository
             return $data->paginate(self::PAGE_SIZE)->getCollection()->toArray();
         }
 
+        $data = $data->whereIn('role', [User::ROLE_ADMIN, User::ROLE_CTV]);
+
         return $data->paginate(self::PAGE_SIZE);
     }
 
-    public function store($request)
+    /**
+     * Create User
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function storeUser($request)
     {
-        $image = '';
+        $pathInfo = null;
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
-            $pathInfo = uploadFileHepler($imageFile, 'users');
-            $image = 'storage/'.$pathInfo;
-
+            $pathInfo = $this->uploadFile($imageFile, 'users');
         }
+
+        $active = $request->active == 'on' ? 1 : 0;
         $event = "Thêm mới người dùng";
         $data = [
             'username' => $request->username,
@@ -84,69 +104,88 @@ class UserRepository extends AbstractRepository
             'birthday' => $request->birthday,
             'phone_number' => $request->phone_number,
             'role' => $request->role,
-            'active' => $request->active,
+            'active' => $active,
             'password' => Hash::make($request->password),
             'password_raw' => $request->password,
-            'image' => $image,
+            'image' => $pathInfo,
         ];
         $this->model::create($data);
-        createLog($event, $data);
+        $this->createLog($event, $data);
     }
 
-    public function update($data, $id, $attribute = "id")
+    /**
+     * Edit User
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function updateUser($data)
     {
+        $id = $data['id'];
         $user = $this->model::findOrFail($id);
-        $validator = $rules = $messages = $attributes = $datas = [];
-        if ($data['password']) {
-            $validator['password'] = $data['password'];
-            $rules['password'] = 'required|min:6|max:20|regex:/^[^\s]+$/';
-            $messages['password.required'] = ':attribute không được để trống.';
-            $messages['password.min'] = ':attribute lớn hơn hoặc bằng :min ký tự.';
-            $messages['password.max'] = ':attribute nhỏ hơn hoặc bằng :max ký tự.';
-            $messages['password.regex'] = ':attribute không được chứa dấu cách.';
-            $attributes['password'] = 'Mật khẩu';
+        $oldUser = $user->getOriginal();
+        $active = $data['active'] == 'on' ? 1 : 0;
+        $datas = [
+            'username' => $data['username'],
+            'fullname' => $data['fullname'],
+            'email' => $data['email'],
+            'gender' => $data['gender'],
+            'birthday' => $data['birthday'],
+            'phone_number' => $data['phone_number'],
+            'role' => $data['role'],
+            'active' => $active,
+            'password' => Hash::make($data['password']),
+            'password_raw' => $data['password']
+        ];
+
+        if (!is_null($data['image'])) {
+            $user->image ? $this->deleteFile($user->image) : '';
+            $imageFile = $data['image'];
+            $pathInfo = $this->uploadFile($imageFile, 'users');
+            $datas['image'] = $pathInfo;
         }
-        $validator = Validator::make($validator, $rules, $messages, $attributes);
-        if ($validator->fails()) {
-            return [false, $validator];
-        } else {
-            $datas = [
-                'username' => $data['username'],
-                'fullname' => $data['fullname'],
-                'email' => $data['email'],
-                'gender' => $data['gender'],
-                'birthday' => $data['birthday'],
-                'phone_number' => $data['phone_number'],
-                'role' => $data['role'],
-                'active' => $data['active'],
-            ];
-            if ($data['password']) {
-                $datas['password'] = Hash::make($data['password']);
-                $datas['password_raw'] = $data['password'];
-            }
-            if (isset($data['image'])) {
-                $user->image ? deleteFileHepler($user->image) : '';
-                $imageFile = $data['image'];
-                $pathInfo = uploadFileHepler($imageFile, 'images');
-                $image = 'storage/' . $pathInfo;
-                $datas['image'] = $image;
-            }
-            $user->update($datas);
-            $event = "Cập nhật người dùng";
-            createLog($event,$datas);
-        }
-        return [true];
+
+        $user->update($datas);
+        $event = "Cập nhật người dùng";
+        $dataLog = [
+            'old' => $oldUser,
+            'new' => $datas
+        ];
+        $this->createLog($event, $dataLog);
     }
 
+    /**
+     * Update user active
+     *
+     * @param User $user
+     * @param $active
+     * @return mixed
+     */
     public function updateActive($user, $active)
     {
-        $datas = [
+        $event = 'Cập nhật người dùng';
+        if($active == '1') {
+            $notification = 'Kích hoạt tài khoản ' .$user->username . ' thành công.';
+            $dataLog = [
+                'user_id' => $user->id,
+                'user_name' => $user->username,
+                'active' => 'Kích hoạt tài khoản'
+            ];
+        } else {
+            $notification = 'Vô hiệu hóa tài khoản ' .$user->username . ' thành công.';
+            $dataLog = [
+                'user_id' => $user->id,
+                'user_name' => $user->username,
+                'active' => 'Vô hiệu hóa tài khoản'
+            ];
+        }
+
+        $data = [
             'active' => $active,
         ];
-        $user->update($datas);
-        $event = "Chuyển trạng thái tài khoản";
-        createLog($event, $datas);
-        return $user;
+        $user->update($data);
+        $this->createLog($event, $dataLog);
+        return $notification;
     }
 
     /**

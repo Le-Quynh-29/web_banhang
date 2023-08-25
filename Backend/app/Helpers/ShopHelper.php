@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\DB;
 
 class ShopHelper
 {
@@ -52,5 +52,63 @@ class ShopHelper
             }
         }
         return '';
+    }
+
+    /**
+     * convert name to slug string
+     * @param string $value
+     * @return mixed
+     */
+    public static function createSlug($value) {
+        return Str::slug($value, '-');
+    }
+
+    /**
+     * Check validate unique
+     *
+     * @param string $table
+     * @param string $column
+     * @param mixed $id
+     * @param string $textCheck
+     * @return boolean
+     */
+    public static function validateUnique($table, $column, $id, $textCheck)
+    {
+        $data = DB::table($table)->where($column, $textCheck);
+
+        if (!is_null($id)) {
+            $data = $data->where('id', '<>', $id);
+        }
+        $data = $data->get();
+
+        if (sizeof($data) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * format phone number
+     * @param string $phoneNumber
+     * @return mixed
+     */
+    public static function formatPhoneNumber($phoneNumber)
+    {
+        $strPhoneNumber = '';
+        if (!is_null($phoneNumber)) {
+            $splitPhoneNumber = str_split($phoneNumber);
+            if ($splitPhoneNumber[0] == '+') {
+                $matchOne = substr($phoneNumber, 0, 5);
+                $matchTwo = substr($phoneNumber, 5, 3);
+                $matchThree = substr($phoneNumber, 8, 4);
+                $strPhoneNumber =  $matchOne . '-' . $matchTwo . '-' . $matchThree;
+            } else {
+                $matchOne = substr($phoneNumber, 0, 3);
+                $matchTwo = substr($phoneNumber, 3, 3);
+                $matchThree = substr($phoneNumber, 6, 4);
+                $strPhoneNumber =  $matchOne . '-' . $matchTwo . '-' . $matchThree;
+            }
+        }
+        return $strPhoneNumber;
     }
 }

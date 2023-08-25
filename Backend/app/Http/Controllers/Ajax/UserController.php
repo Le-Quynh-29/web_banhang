@@ -30,4 +30,19 @@ class UserController extends AjaxController
             return $this->responseError(true);
         }
     }
+
+    /**
+     * Update user
+     *
+     * @return mixed
+     */
+    public function update(Request $request)
+    {
+        $id = $request->get('id');
+        $user = $this->userRepo->find($id);
+        abort_if(is_null($user), 404);
+        $data = $request->except(['_token', '_method', '_url']);
+        $this->userRepo->updateUser($data);
+        return $this->responseSuccess('success');
+    }
 }

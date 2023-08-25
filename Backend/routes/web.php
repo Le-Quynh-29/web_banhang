@@ -18,8 +18,15 @@ Route::group(['middleware' => ['guest']], function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('content/{path}', [\App\Http\Controllers\ContentController::class, 'show'])->name('content.show');
     Route::get('/logout', [\App\Http\Controllers\Auth\AdminController::class, 'logout'])->name('logout');
+
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::prefix('user')->group(function () {
+        Route::post('/unlock-or-lock/{id}', [\App\Http\Controllers\UserController::class, 'unlockOrLock'])
+            ->name('user.unlock.or.lock');
+    });
+
     Route::resource('user',\App\Http\Controllers\UserController::class);
     Route::resource('category',\App\Http\Controllers\CategoryController::class);
     Route::prefix('log')->group(function () {

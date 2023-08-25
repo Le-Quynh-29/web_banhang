@@ -9,7 +9,9 @@
                 <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button"
                                              aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-md">
-                        <img class="avatar-img" id="avatar" alt="user@email.com">
+                        <img class="avatar-img" id="avatar" alt="user@email.com"
+                             onerror="this.src='{{route('content.show', base64_encode(\App\Models\User::IMAGE_DEFAULT))}}'"
+                             src="{{route('content.show', base64_encode('app/'. auth()->user()->image))}}">
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end p-0 ov-hidden">

@@ -9,7 +9,7 @@
         this.token = _token;
         this.selectedUser = _selectedUser;
         this.element.on("change", "#search-by-keyword", function() {
-            appLog.handleChangeByKeyWord();
+            appLog.handleChangeByKeyWord($(this));
         });
         this.element.on("change", "#start_date", function() {
             appLog.changeStartDate();
@@ -23,7 +23,6 @@
         _init: function _init() {
             this.initUserTagify();
             this.ajaxSetup();
-            this.handleChangeByKeyWord();
         },
         ajaxSetup: function ajaxSetup() {
             $.ajaxSetup({
@@ -105,22 +104,20 @@
             function onAddTag(e) {
             }
         },
-        handleChangeByKeyWord: function() {
-            var searchBy = $("#search-by-keyword").val();
+        handleChangeByKeyWord: function(t) {
+            var searchBy = t.val();
             if (searchBy === "user_agent" || searchBy === "ip_address") {
-                $("#search-text").show();
-                $("#module").hide();
-                $("#module").val('');
+                $("#module").removeClass('active');
+                $("#search-text").addClass('active');
                 $("#module").prop("disabled", true);
                 $("#search-text").prop("disabled", false);
             }
 
             if (searchBy === "event") {
-                $("#module").show();
-                $("#module").prop("disabled", false);
-                $("#search-text").hide();
-                $("#search-text").val('');
-                $("#search-text").prop("disabled", true);
+                $("#search-text").removeClass('active');
+                $("#module").addClass('active');
+                $("#module").prop("disabled", true);
+                $("#search-text").prop("disabled", false);
             }
         },
     };

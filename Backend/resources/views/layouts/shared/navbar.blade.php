@@ -1,6 +1,8 @@
 <div class="sidebar-brand d-md-flex">
-    <img src="" class="sidebar-brand-full navbar-image" alt="QUEEN SHOP" height="46">
-    <img src="" class="sidebar-brand-narrow navbar-image" alt="QUEEN SHOP" height="46">
+    <img src="{{ route('content.show', base64_encode('image/logo.png')) }}"
+         class="sidebar-brand-full navbar-image" alt="QUEEN SHOP" height="46">
+    <img src="{{ route('content.show', base64_encode('image/logo.png')) }}"
+         class="sidebar-brand-narrow navbar-image" alt="QUEEN SHOP" height="46">
 </div>
 <ul class="sidebar-nav simplebar-scrollable-y" data-coreui="navigation" data-simplebar="init">
     <div class="simplebar-wrapper m-0">
@@ -17,6 +19,16 @@
                                 <i class="nav-icon fas fa-tachometer-alt-average"></i>
                                 Dashboard</a>
                         </li>
+                        @if (Gate::allows('pmss--category-index'))
+                            <li class="nav-title">Dữ liệu</li>
+                        @endif
+                        @if(Gate::allows('pmss--category-index'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('category.index') }}" data-id="category">
+                                    <i class="nav-icon far fa-list"></i>
+                                    Quản lý danh mục</a>
+                            </li>
+                        @endif
 
                         @if (Gate::allows('pmss--user-index') || Gate::allows('pmss--log-index') ||
                                 Gate::allows('pmss--permission-index'))
@@ -45,11 +57,7 @@
                             </li>
                         @endif
                         @if (Gate::allows('pmss--category-index'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('category.index') }}" data-id="log">
-                                <i class="nav-icon fas fa-folder"></i>
-                                Quản lý danh mục</a>
-                        </li>
+
                     @endif
                     </div>
                 </div>

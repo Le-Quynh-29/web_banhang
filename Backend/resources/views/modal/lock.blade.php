@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-confirm" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1"
+<div class="modal fade" id="modal-lock" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -16,118 +16,98 @@
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
-            <h4>Chi tiết người dùng <em>(ID: {{$user->id}})</em></h4>
+            <h4>Chi tiết người dùng: <span class="cl-blue">{{ $user->username }}</span></h4>
         </div>
         <div class="card-body">
             <div class="row row-cols-lg-auto">
-                <div class="col-lg-4 col-xxl-4 mb-2">
+                <div class="col-xlg-4 col-xl-4 col-sm-12">
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Tên đăng nhập</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">{{$user->username}}</label>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Họ tên</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">{{$user->fullname}}</label>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Giới tính</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">{{$user->convertGender($user->gender)}}</label>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Ngày sinh</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">{{$user->formatDate($user->birthday)}}</label>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Số điện thoại</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">{{$user->phone_number}}</label>
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Ảnh đại diện:</label>
+                        <div class="col-xlg-8">
+                            <img class="image-user" alt=""
+                                 onerror="this.src='{{route('content.show', base64_encode(\App\Models\User::IMAGE_DEFAULT))}}'"
+                                 src="{{route('content.show', base64_encode('app/' . $user->image))}}"/>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-xxl-4 mb-2">
+                <div class="col-xlg-4 col-xl-4 col-sm-12">
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Email</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">{{$user->email}}</label>
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Tên đăng nhập:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label">{{$user->username}}</p>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Trạng thái</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Họ tên:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label">{{$user->fullname}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Giới tính:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label">{{$user->convertGender($user->gender)}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Ngày sinh:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label">{{\ShopHelper::formatTime($user->birthday)}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Số điện thoại:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label">{{ \ShopHelper::formatPhoneNumber($user->phone_number)}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xlg-4 col-xl-4 col-sm-12 mb-2">
+                    <div class="form-group row">
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Email:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label">{{$user->email}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Trạng thái:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label">
                                 <span class="active">
                                     {!!$user->convertStatus($user->active)!!}
                                 </span>
-                            </label>
+                            </p>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Ngày tạo</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">
-                                {{$user->formatDate($user->created_at)}}
-                            </label>
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Ngày tạo:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label">
+                                {{\ShopHelper::formatTime($user->created_at)}}
+                            </p>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Ngày cập nhật</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">
-                                {{$user->formatDate($user->updated_at)}}
-                            </label>
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Ngày cập nhật:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label">
+                                {{\ShopHelper::formatTime($user->updated_at)}}
+                            </p>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Vai trò</strong>
-                        </label>
-                        <div class="col-md-9">
-                            <label class="col-md col-form-label">
-                                <strong>{{$user->convertRole($user->role)}}</strong>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xxl-4 mb-2">
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">
-                            <strong>Ảnh</strong>
-                        </label>
-                        <div class="col-md-9">
-                             <img class="image-user" src="{{asset($user->image)}}" onerror="this.src = '{{ asset('storage/images/user-default.png') }}'" alt="">
+                        <label class="col-xlg-4 col-form-label font-weight-bold">Vai trò:</label>
+                        <div class="col-xlg-8">
+                            <p class="text-break col-form-label font-weight-bold">
+                                {{$user->convertRole($user->role)}}
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-footer">
-            <a class="btn btn-primary" href="{{ url()->previous() }}">Trở về</a>
+            <a class="btn btn-primary" href="{{ url()->previous() }}">Quay lại</a>
         </div>
     </div>
 @endsection

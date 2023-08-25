@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
+use App\Traits\ShopStorage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
+    use ShopStorage;
     protected $userRepository;
 
     public function __construct(UserRepository $userRepository)
@@ -20,9 +22,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        if (! Gate::allows('pmss--user-index')) {
+            abort(403);
+        }
         $users = $this->userRepository->listUser($request, false);
-        $message = $request->session()->get('message', '');
-        return view('user/index', compact('users', 'message'));
+        return view('user/index', compact('users'));
     }
 
     /**
@@ -30,17 +34,20 @@ class UserController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('pmss--user-create')) {
+            abort(403);
+        }
         return view('user/create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(UserRequest $request)
     {
-        $this->userRepository->store($request);
-        $message = 'Thêm mới người dùng ' . $request->fullname . ' thành công';
-        return redirect()->route('user.index')->with('message', $message);
+        $this->userRepository->storeUser($request);
+        toastr()->success('Thêm mới người dùng ' . $request->fullname . ' thành công.', 'Thông báo');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -48,6 +55,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        if (! Gate::allows('pmss--user-detail')) {
+            abort(403);
+        }
         $user = $this->userRepository->find($id);
         return view('user.show', compact('user'));
     }
@@ -57,21 +67,22 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        if (! Gate::allows('pmss--user-update')) {
+            abort(403);
+        }
         $user = $this->userRepository->find($id);
+        if (is_null($user)) {
+            abort(404);
+        }
         return view('user.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UserRequest $request, string $id)
     {
-        $message = 'Cập nhật người dùng ' . $request->fullname . ' thành công';
-        $user = $this->userRepository->update($request->all(), $id);
-        if (!$user[0]) {
-            return redirect()->back()->withErrors($user[1])->withInput();
-        }
-        return redirect()->route('user.index')->with('message', $message);
+        //
     }
 
     /**
@@ -80,30 +91,28 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = $this->userRepository->find($id);
+        if (is_null($user)) {
+            abort(404);
+        }
+        if (!is_null($user->image)) {
+            $this->deleteFile($user->image);
+        }
         $this->userRepository->delete($id);
-        deleteFileHepler($user->image);
-        return response()->json(
-            [
-                'message' => 'Xóa ' . $user->fullname . ' thành công',
-                'status' => 200
-            ],
-            200
-        );
+        toastr()->success('Xóa tài khoản '. $user->username . 'thành công.', 'Thông báo');
+        return redirect()->back();
     }
+
     /**
      * handel unlock or lock
      */
-    public function unlockOrlock(Request $request)
+    public function unlockOrLock($id, Request $request)
     {
-        $user = $this->userRepository->find($request->id);
-        $user = $this->userRepository->updateActive($user, $request->active);
-        return response()->json(
-            [
-                'message' => 'Cập nhật trạng thái tài khoản ' . $user->fullname . ' thành công',
-                'data' => view('user.render-action', compact('user'))->render(),
-                'status' => 200
-            ],
-            200
-        );
+        $user = $this->userRepository->find($id);
+        if (is_null($user)) {
+            abort(404);
+        }
+        $notification = $this->userRepository->updateActive($user, $request->active);
+        toastr()->success($notification, 'Thông báo');
+        return redirect()->back();
     }
 }

@@ -14,6 +14,10 @@ export default defineConfig({
                 'resources/js/navbar.js',
                 'resources/js/tagify.js',
                 'resources/sass/tagify.scss',
+                'resources/js/modal-confirm.js',
+                'resources/js/upload-preview.js',
+                'resources/sass/upload-preview.scss',
+
                 //User
                 'resources/sass/user.scss',
 
@@ -22,7 +26,7 @@ export default defineConfig({
                 'resources/js/user/edit.js',
                 //Category
                 'resources/sass/category.scss',
-                
+
                 'resources/js/category/index.js',
                 'resources/js/category/create.js',
                 'resources/js/category/edit.js',

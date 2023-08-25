@@ -14,17 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::group(['middleware' => ['guest']], function () {
-    Route::prefix('admin')->group(function () {
-        Route::post('/check-login', [\App\Http\Controllers\Auth\AdminController::class, 'checkErrorLogin'])
-            ->name('ajax.admin.check.login');
-    });
-//});
+Route::prefix('admin')->group(function () {
+    Route::post('/check-login', [\App\Http\Controllers\Auth\AdminController::class, 'checkErrorLogin'])
+        ->name('ajax.admin.check.login');
+});
+
 Route::group(['middleware' => ['auth']], function () {
+    Route::post('validator/unique', [\App\Http\Controllers\Ajax\BaseController::class, 'validateUnique'])
+        ->name('ajax.validate.unique');
     Route::prefix('user')->group(function () {
-        Route::post('/unlock-or-lock', [\App\Http\Controllers\UserController::class, 'unlockOrlock'])->name('ajax.user.unlock.or.lock');
         Route::get('/autocomplete', [\App\Http\Controllers\Ajax\UserController::class, 'autocomplete'])
             ->name('ajax.user.autocomplete');
+        Route::post('/update', [\App\Http\Controllers\Ajax\UserController::class, 'update'])
+            ->name('ajax.user.update');
     });
 });
 

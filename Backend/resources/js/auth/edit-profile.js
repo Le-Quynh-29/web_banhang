@@ -1,8 +1,8 @@
 (function ($) {
     'use strict';
 
-    var AppUserEdit = function AppUserEdit(element, options, cb) {
-        var appUserEdit = this;
+    var AppProfileEdit = function AppProfileEdit(element, options, cb) {
+        var appProfileEdit = this;
         this.element = element;
         this.$element = $(element);
         this.appUrl = _appUrl;
@@ -10,10 +10,10 @@
         this.user = _user;
     };
 
-    AppUserEdit.prototype = {
+    AppProfileEdit.prototype = {
         _init: function _init() {
             this.ajaxSetup();
-            this.initValidation();
+            // this.initValidation();
             this.initUploadPreview();
         },
         ajaxSetup: function () {
@@ -193,13 +193,13 @@
     };
 
     /* Execute main function */
-    $.fn.appUserEdit = function (options, cb) {
+    $.fn.appProfileEdit = function (options, cb) {
         this.each(function () {
             var el = $(this);
-            if (!el.data('appUserEdit')) {
-                var appUserEdit = new AppUserEdit(el, options, cb);
-                el.data('appUserEdit', AppUserEdit);
-                appUserEdit._init();
+            if (!el.data('appProfileEdit')) {
+                var appProfileEdit = new AppProfileEdit(el, options, cb);
+                el.data('appProfileEdit', AppProfileEdit);
+                appProfileEdit._init();
             }
         });
         return this;
@@ -207,5 +207,5 @@
 })(jQuery);
 
 $(document).ready(function () {
-    $('body').appUserEdit();
+    $('body').appProfileEdit();
 });

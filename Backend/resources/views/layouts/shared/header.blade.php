@@ -18,7 +18,7 @@
                     <div class="dropdown-header bg-light py-2">
                         <div class="fw-semibold">{{ auth()->user()->username }}</div>
                     </div>
-                    <a class="dropdown-item" href="javascript:;">
+                    <a class="dropdown-item" href="{{ route('auth.profile') }}">
                         <i class="far fa-user-cog"></i>
                         Thông tin cá nhân
                     </a>

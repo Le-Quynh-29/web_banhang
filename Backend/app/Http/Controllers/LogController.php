@@ -21,9 +21,7 @@ class LogController extends Controller
      */
     public function index(Request $request)
     {
-        if (! Gate::allows('pmss--log-index')) {
-            abort(403);
-        }
+        abort_if(! Gate::allows('pmss--log-index'),403);
         $logs = $this->logRepo->getListLog($request, false);
         $user = $request->get('search_user_id');
         $userTagify = json_encode([]);
@@ -40,13 +38,9 @@ class LogController extends Controller
      */
     public function show(string $id)
     {
-        if (! Gate::allows('pmss--log-detail')) {
-            abort(403);
-        }
+        abort_if(! Gate::allows('pmss--log-detail'),403);
         $log = $this->logRepo->find($id);
-        if (is_null($log)) {
-            abort(404);
-        }
+        abort_if(is_null($log),404);
         return view('log/show', compact('log'));
     }
 }

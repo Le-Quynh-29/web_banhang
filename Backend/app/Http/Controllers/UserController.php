@@ -22,9 +22,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if (! Gate::allows('pmss--user-index')) {
-            abort(403);
-        }
+        abort_if(! Gate::allows('pmss--user-index'),403);
         $users = $this->userRepository->listUser($request, false);
         return view('user/index', compact('users'));
     }
@@ -34,9 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('pmss--user-create')) {
-            abort(403);
-        }
+        abort_if(! Gate::allows('pmss--user-create'),403);
         return view('user/create');
     }
 
@@ -55,10 +51,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        if (! Gate::allows('pmss--user-detail')) {
-            abort(403);
-        }
+        abort_if(! Gate::allows('pmss--user-detail'),403);
         $user = $this->userRepository->find($id);
+        abort_if(is_null($user),404);
         return view('user.show', compact('user'));
     }
 
@@ -67,13 +62,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        if (! Gate::allows('pmss--user-update')) {
-            abort(403);
-        }
+        abort_if(! Gate::allows('pmss--user-update'),403);
         $user = $this->userRepository->find($id);
-        if (is_null($user)) {
-            abort(404);
-        }
+        abort_if(is_null($user),404);
         return view('user.edit', compact('user'));
     }
 
@@ -91,9 +82,7 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = $this->userRepository->find($id);
-        if (is_null($user)) {
-            abort(404);
-        }
+        abort_if(is_null($user),404);
         if (!is_null($user->image)) {
             $this->deleteFile($user->image);
         }
@@ -108,11 +97,31 @@ class UserController extends Controller
     public function unlockOrLock($id, Request $request)
     {
         $user = $this->userRepository->find($id);
-        if (is_null($user)) {
-            abort(404);
-        }
+        abort_if(is_null($user),404);
         $notification = $this->userRepository->updateActive($user, $request->active);
         toastr()->success($notification, 'Thông báo');
         return redirect()->back();
+    }
+
+    /**
+     * Profile
+     */
+    public function profile()
+    {
+        abort_if(! Gate::allows('pmss--user-info'),403);
+        abort_if(is_null(auth()->user()), 404);
+        $user = auth()->user();
+        return view('auth/profile', compact('user'));
+    }
+
+    /**
+     * Edit profile
+     */
+    public function editProfile()
+    {
+        abort_if(! Gate::allows('pmss--user-update'),403);
+        abort_if(is_null(auth()->user()), 404);
+        $user = auth()->user();
+        return view('auth/edit-profile', compact('user'));
     }
 }

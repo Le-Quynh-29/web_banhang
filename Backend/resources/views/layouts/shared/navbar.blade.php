@@ -37,7 +37,7 @@
                         @if (Gate::allows('pmss--user-index'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('user.index')}}" data-id="user">
-                                    <i class="nav-icon fas fa-user"></i>
+                                    <i class="nav-icon fa-solid fa-users"></i>
                                     Quản lý người dùng</a>
                             </li>
                         @endif

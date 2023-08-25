@@ -104,6 +104,12 @@ class PermissionSeeder extends Seeder
             'name' => 'Đổi mật khẩu',
             'slug' => 'pmss--user-change-pass'
         ]);
+        DB::table('permissions')->insert([
+            'id' => 58,
+            'module' => 'Người dùng',
+            'name' => 'Cập nhật thông tin cá nhân',
+            'slug' => 'pmss--user-info-update'
+        ]);
 
         //Khách hàng
         DB::table('permissions')->insert([

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('admin')->group(function () {
-    Route::post('/check-login', [\App\Http\Controllers\Auth\AdminController::class, 'checkErrorLogin'])
+    Route::post('/check-login', [\App\Http\Controllers\Auth\LoginController::class, 'checkErrorLogin'])
         ->name('ajax.admin.check.login');
 });
 

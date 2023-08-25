@@ -49,5 +49,5 @@
         window.localStorage.removeItem('menu-selected');
     </script>
     @vite('resources/js/jquery-validation.js')
-    @vite('resources/js/login.js')
+    @vite('resources/js/auth/login.js')
 @endsection

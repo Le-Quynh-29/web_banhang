@@ -22,11 +22,8 @@ class PermissionController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request) {
-        if (! Gate::allows('pmss--permission-index')) {
-            abort(403);
-        }
+        abort_if(! Gate::allows('pmss--permission-index'),403);
         $roles = $this->roleRepo->all($request, false);
-
         return view('permission/index', compact('roles'));
     }
 
@@ -36,13 +33,9 @@ class PermissionController extends Controller
      * @param  int  $role_id
      */
     public function edit($role_id) {
-        if (! Gate::allows('pmss--permission-edit')) {
-            abort(403);
-        }
+        abort_if(! Gate::allows('pmss--permission-edit'),403);
         $role = $this->roleRepo->find($role_id);
-        if (is_null($role)) {
-            abort(404);
-        }
+        abort(is_null($role),404);
         $permissions = $this->permissionRepo->getAll();
         $arr_pmss = $role->permissions()->pluck('id')->toArray();
         return view('permission/edit', compact('permissions', 'role', 'arr_pmss'));
@@ -55,13 +48,9 @@ class PermissionController extends Controller
      * @param  int  $id
      */
     public function update(Request $request, $role_id) {
-        if (! Gate::allows('pmss--permission-update')) {
-            abort(403);
-        }
+        abort_if(! Gate::allows('pmss--permission-update'),403);
         $role = $this->roleRepo->find($role_id);
-        if (is_null($role)) {
-            abort(404);
-        }
+        abort(is_null($role),404);
         $permissions = $request->get('permissions');
         $role->permissions()->sync($permissions);
         toastr()->success('Cập nhật thông tin người dùng thành công.', 'Thông báo');

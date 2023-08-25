@@ -10,7 +10,6 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/tooltips.js',
                 'resources/js/jquery-validation.js',
-                'resources/js/login.js',
                 'resources/js/navbar.js',
                 'resources/js/tagify.js',
                 'resources/sass/tagify.scss',
@@ -33,6 +32,10 @@ export default defineConfig({
                 //log
                 'resources/js/log/log.js',
                 'resources/js/log/show.js',
+
+                //auth
+                'resources/js/auth/login.js',
+                'resources/js/auth/edit-profile.js',
             ],
             refresh: true,
         }),

@@ -10,7 +10,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-0 ms-2">
                 <li class="breadcrumb-item"><span>Hệ thống</span></li>
-                <li class="breadcrumb-item active"><span><a href="{{route('user.index')}}">Quản lý người dùng</a></span>
+                <li class="breadcrumb-item active">
+                    <span><a href="{{route('user.index')}}">Quản lý người dùng</a></span>
                 </li>
                 <li class="breadcrumb-item active"><span>Cập nhật người dùng</span></li>
             </ol>

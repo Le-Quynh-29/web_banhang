@@ -13,13 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['middleware' => ['guest']], function () {
-    Route::get('/login', [\App\Http\Controllers\Auth\AdminController::class, 'viewLogin'])->name('login');
-    Route::post('/login', [\App\Http\Controllers\Auth\AdminController::class, 'login'])->name('admin.login');
+    Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'viewLogin'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.login');
 });
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('content/{path}', [\App\Http\Controllers\ContentController::class, 'show'])->name('content.show');
-    Route::get('/logout', [\App\Http\Controllers\Auth\AdminController::class, 'logout'])->name('logout');
+    Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+    Route::prefix('auth')->group(function () {
+        Route::get('/profile', [\App\Http\Controllers\UserController::class, 'profile'])->name('auth.profile');
+        Route::get('/profile/edit', [\App\Http\Controllers\UserController::class, 'editProfile'])->name('auth.profile.edit');
+    });
 
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::prefix('user')->group(function () {

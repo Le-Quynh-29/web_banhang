@@ -8,6 +8,7 @@
         this.appUrl = _appUrl;
         this.token = _token;
         this.user = _user;
+        this.authId = _authId;
     };
 
     AppUserEdit.prototype = {
@@ -173,6 +174,9 @@
                         contentType: false,
                         success: function (res) {
                             if (res.status == 200) {
+                                if (el.user.id == el.authId) {
+                                    $('#avatar').attr('src', el.appUrl + '/content/' + res.data);
+                                }
                                 toastr.success('Cập nhật thông tin người dùng ' + $('#username').val() + ' thành công.', 'Thông báo');
                             }
                         },

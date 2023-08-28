@@ -12,8 +12,7 @@
 @endsection
 
 @section('content')
-    <form class="form-horizontal wizard clearfix" action="{{ route('permission.update', $role->id) }}" method="POST"
-          enctype="multipart/form-data">
+    <form action="{{ route('permission.update', $role->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card mb-4">
             <div class="card-header">
@@ -40,7 +39,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary modal-confirm" type="submit">{{ __('Cập nhật') }}</button>
+                <button class="btn btn-primary" type="submit">{{ __('Cập nhật') }}</button>
             </div>
         </div>
     </form>

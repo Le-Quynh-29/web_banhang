@@ -131,5 +131,4 @@
     <script>
         window.localStorage.setItem('menu-selected', 'category');
     </script>
-    @vite('resources/js/category/index.js')
 @endsection

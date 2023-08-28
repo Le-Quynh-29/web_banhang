@@ -64,30 +64,6 @@ class ShopHelper
     }
 
     /**
-     * Check validate unique
-     *
-     * @param string $table
-     * @param string $column
-     * @param mixed $id
-     * @param string $textCheck
-     * @return boolean
-     */
-    public static function validateUnique($table, $column, $id, $textCheck)
-    {
-        $data = DB::table($table)->where($column, $textCheck);
-
-        if (!is_null($id)) {
-            $data = $data->where('id', '<>', $id);
-        }
-        $data = $data->get();
-
-        if (sizeof($data) == 0) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * format phone number
      * @param string $phoneNumber
      * @return mixed

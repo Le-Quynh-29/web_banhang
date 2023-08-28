@@ -18,11 +18,11 @@
                     <div class="dropdown-header bg-light py-2">
                         <div class="fw-semibold">{{ auth()->user()->username }}</div>
                     </div>
-                    <a class="dropdown-item" href="{{ route('auth.profile') }}">
+                    <a class="dropdown-item" href="{{ route('profile.index') }}">
                         <i class="far fa-user-cog"></i>
                         Thông tin cá nhân
                     </a>
-                    <a class="dropdown-item" href="javascript:;">
+                    <a class="dropdown-item" href="{{ route('profile.change.password') }}">
                         <i class="far fa-key"></i>
                         Đổi mật khẩu
                     </a>

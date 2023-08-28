@@ -6,9 +6,8 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
-class UserRequest extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +25,10 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', Rule::unique('users')->ignore($this->id, 'id'),'max:20','regex:/^[A-Za-z0-9\-_@]+$/'],
             'fullname' => 'required|max:50',
-            'email' => ['required',Rule::unique('users')->ignore($this->id, 'id'),'email','max:255'],
+            'email' => ['required',Rule::unique('users')->ignore($this->user()->id, 'id'),'email','max:255'],
             'phone_number' => ['required','min:8','max:255',
                 'regex:/^[+0(]?\(?([0-9]{1,5})\)?[-. ]?\(?([0-9]{1,5})\)?[-. ]?\(?([0-9]{1,5})\)?[-. ]?\(?([0-9]{1,5})\)?[-. ]?\(?([0-9]{1,5})\)?$/'],
-            'password' => 'required|min:8|max:20|regex:/^(?:\+?\d{1,3}\s?)?[0-9\-]+$/',
         ];
     }
 
@@ -43,12 +40,6 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'username.required' => ':attribute không được để trống.',
-            'username.unique' => ':attribute đã tồn tại.',
-            'username.min' => ':attribute lớn hơn hoặc bằng :min ký tự.',
-            'username.max' => ':attribute nhỏ hơn hoặc bằng :max ký tự.',
-            'username.regex' => ':attribute chứa ký tự đặc biệt không được phép.',
-
             'fullname.required' => ':attribute không được để trống.',
             'fullname.max' => ':attribute phải nhỏ hơn hoặc bằng :max ký tự.',
 
@@ -60,11 +51,6 @@ class UserRequest extends FormRequest
             'phone_number.min' => ':attribute lớn hơn hoặc bằng :min ký tự.',
             'phone_number.max' => ':attribute nhỏ hơn hoặc bằng :max ký tự.',
             'phone_number.regex' => ':attribute không tồn tại.',
-
-            'password.required' => ':attribute không được để trống.',
-            'password.min' => ':attribute lớn hơn hoặc bằng :min ký tự.',
-            'password.max' => ':attribute nhỏ hơn hoặc bằng :max ký tự.',
-            'password.regex' => ':attribute không được chứa ký tự tiếng Việt và dấu cách.',
         ];
     }
 
@@ -76,11 +62,9 @@ class UserRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'username' => 'Tên đăng nhập',
             'fullname' => 'Họ và tên',
             'email' => 'Email',
             'phone_number' => 'Số điện thoại',
-            'password' => 'Mật khẩu',
         ];
     }
 

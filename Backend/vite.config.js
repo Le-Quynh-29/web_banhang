@@ -35,7 +35,10 @@ export default defineConfig({
 
                 //auth
                 'resources/js/auth/login.js',
-                'resources/js/auth/edit-profile.js',
+
+                //profile
+                'resources/js/profile/edit.js',
+                'resources/js/profile/change-password.js',
             ],
             refresh: true,
         }),

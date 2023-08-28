@@ -159,6 +159,7 @@
 @section('javascript')
     <script>
         _user = {!! $user !!};
+        _authId = {!! auth()->id() !!};
         window.localStorage.setItem('menu-selected', 'user');
     </script>
     @vite('resources/js/jquery-validation.js')

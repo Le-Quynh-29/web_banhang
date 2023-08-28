@@ -19,7 +19,7 @@
     <div class="card mb-4">
         <div class="card-header">
             <h4>Thông tin cá nhân</h4>
-            <a class="btn btn-primary" href="{{ route('auth.profile.edit') }}">
+            <a class="btn btn-primary" href="{{ route('profile.edit') }}">
                 <i class="far fa-user-edit"></i>
                 Sửa
             </a>

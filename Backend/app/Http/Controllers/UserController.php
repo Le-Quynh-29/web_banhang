@@ -111,7 +111,7 @@ class UserController extends Controller
         abort_if(! Gate::allows('pmss--user-info'),403);
         abort_if(is_null(auth()->user()), 404);
         $user = auth()->user();
-        return view('auth/profile', compact('user'));
+        return view('profile/profile', compact('user'));
     }
 
     /**
@@ -122,6 +122,16 @@ class UserController extends Controller
         abort_if(! Gate::allows('pmss--user-update'),403);
         abort_if(is_null(auth()->user()), 404);
         $user = auth()->user();
-        return view('auth/edit-profile', compact('user'));
+        return view('profile/edit-profile', compact('user'));
+    }
+
+    /**
+     * Change password
+     */
+    public function changePassword()
+    {
+        abort_if(! Gate::allows('pmss--user-change-pass'),403);
+        abort_if(is_null(auth()->user()), 404);
+        return view('profile/change-password');
     }
 }

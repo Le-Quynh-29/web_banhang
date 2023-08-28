@@ -74,11 +74,13 @@
             function onInput(e) {
                 tagify.settings.whitelist.length = 0;
                 $.ajax({
-                    url: el.appUrl + '/ajax/user/autocomplete',
+                    url: el.appUrl + '/ajax/autocomplete',
                     type: 'GET',
                     dataType: 'json',
                     data: {
-                        input: e.detail.value
+                        table: 'users',
+                        column: 'username',
+                        text_check: e.detail.value
                     },
                     beforeSend: function beforeSend() {
                         tagify.loading(true);

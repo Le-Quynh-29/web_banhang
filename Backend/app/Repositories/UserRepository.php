@@ -143,6 +143,8 @@ class UserRepository extends AbstractRepository
             $imageFile = $data['image'];
             $pathInfo = $this->uploadFile($imageFile, 'users');
             $datas['image'] = $pathInfo;
+        } else {
+            $datas['image'] = $user->image;
         }
 
         $user->update($datas);
@@ -152,6 +154,7 @@ class UserRepository extends AbstractRepository
             'new' => $datas
         ];
         $this->createLog($event, $dataLog);
+        return base64_encode('app/' . $datas['image']);
     }
 
     /**
@@ -189,25 +192,81 @@ class UserRepository extends AbstractRepository
     }
 
     /**
-     * user autocomplete
+     * Edit profile
      *
-     * @param string $term
+     * @param array $data
      * @return mixed
      */
-    public function autocomplete($term)
+    public function updateProfile($data)
     {
-        $users = User::where('username', 'LIKE', '%' . $term . '%');
+        $user = $this->model::findOrFail(auth()->id());
+        $oldUser = $user->getOriginal();
+        $datas = [
+            'fullname' => $data['fullname'],
+            'email' => $data['email'],
+            'gender' => $data['gender'],
+            'birthday' => $data['birthday'],
+            'phone_number' => $data['phone_number'],
+        ];
 
-        $users = $users->limit(20)->get();
-
-        $arr = [];
-        foreach ($users as $user) {
-            $userO = new \stdClass();
-            $userO->id = $user->id;
-            $userO->value = html_entity_decode($user->username);
-            $arr[] = $userO;
+        if (!is_null($data['image'])) {
+            $user->image ? $this->deleteFile($user->image) : '';
+            $imageFile = $data['image'];
+            $pathInfo = $this->uploadFile($imageFile, 'users');
+            $datas['image'] = $pathInfo;
+        } else {
+            $datas['image'] = $user->image;
         }
 
-        return $arr;
+        $user->update($datas);
+        $event = "Cập nhật thông tin cá nhân";
+        $dataLog = [
+            'old' => $oldUser,
+            'new' => $datas
+        ];
+        $this->createLog($event, $dataLog);
+        return base64_encode('app/' . $datas['image']);
+    }
+
+    /**
+     * Check validate current password
+     *
+     * @param string $password
+     * @return boolean
+     */
+    public function checkValidateCurrentPassword($password)
+    {
+        $data = $this->model->where('id', auth()->id())
+            ->where('password_raw', $password)->exists();
+        return $data;
+    }
+
+    /**
+     * change password
+     *
+     * @param array $data
+     * @return void
+     */
+    public function changePassword($data)
+    {
+        $user = $this->model::findOrFail(auth()->id());
+
+        $oldData = [
+            'password' => $user->password,
+            'password_raw' => $user->new_password
+        ];
+
+        $newData = [
+            'password' => Hash::make($data['new_password']),
+            'password_raw' => $data['new_password']
+        ];
+        $user->update($newData);
+
+        $event = "Đổi mật khẩu";
+        $dataLog = [
+            'old' => $oldData,
+            'new' => $newData
+        ];
+        $this->createLog($event, $dataLog);
     }
 }

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Repositories\CategoryRepository;
+use App\Traits\ShopStorage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
+    use ShopStorage;
     protected $categoryRepository;
 
     public function __construct(CategoryRepository $categoryRepository)
@@ -18,9 +22,9 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(! Gate::allows('pmss--category-index'),403);
         $categories = $this->categoryRepository->listCategory($request, false);
-        $message = $request->session()->get('message', '');
-        return view('category/index', compact('categories', 'message'));
+        return view('category/index', compact('categories'));
     }
 
     /**
@@ -28,17 +32,19 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        abort_if(! Gate::allows('pmss--category-create'),403);
         return view('category/create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $this->categoryRepository->store($request);
-        $message = 'Thêm mới danh mục ' . $request->fullname . ' thành công';
-        return redirect()->route('category.index')->with('message', $message);
+        abort_if(! Gate::allows('pmss--category-create'),403);
+        $this->categoryRepository->storeCategory($request);
+        toastr()->success('Thêm mới danh mục ' . $request->name . ' thành công.', 'Thông báo');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -46,7 +52,9 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
+        abort_if(! Gate::allows('pmss--category-detail'),403);
         $category = $this->categoryRepository->find($id);
+        abort_if(is_null($category),404);
         return view('category.show', compact('category'));
     }
 
@@ -55,18 +63,18 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
+        abort_if(! Gate::allows('pmss--category-update'),403);
         $category = $this->categoryRepository->find($id);
+        abort_if(is_null($category),404);
         return view('category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, string $id)
     {
-        $message = 'Cập nhật người dùng ' . $request->fullname . ' thành công';
-        $category = $this->categoryRepository->update($request->all(), $id);
-        return redirect()->route('category.index')->with('message', $message);
+        //
     }
 
     /**
@@ -74,15 +82,11 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
+        abort_if(! Gate::allows('pmss--category-delete'),403);
         $category = $this->categoryRepository->find($id);
-        $this->categoryRepository->delete($id);
-        deleteFileHepler($category->image);
-        return response()->json(
-            [
-                'message' => 'Xóa ' . $category->name . ' thành công',
-                'status' => 200
-            ],
-            200
-        );
+        abort_if(is_null($category),404);
+        $this->categoryRepository->deleteCategory($category);
+        toastr()->success('Xóa danh mục '. $category->name . ' thành công.', 'Thông báo');
+        return redirect()->back();
     }
 }

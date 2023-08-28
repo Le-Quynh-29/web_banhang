@@ -28,5 +28,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update', [\App\Http\Controllers\Ajax\UserController::class, 'update'])
             ->name('ajax.user.update');
     });
+    Route::prefix('category')->group(function () {
+        Route::post('/update', [\App\Http\Controllers\Ajax\CategoryController::class, 'update'])
+            ->name('ajax.user.update');
+    });
 });
 

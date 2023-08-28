@@ -26,7 +26,6 @@ export default defineConfig({
                 //Category
                 'resources/sass/category.scss',
 
-                'resources/js/category/index.js',
                 'resources/js/category/create.js',
                 'resources/js/category/edit.js',
                 //log

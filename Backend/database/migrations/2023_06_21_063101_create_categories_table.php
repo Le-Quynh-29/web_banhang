@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name')->unique('idx_category_name_unique');
             $table->string('slug');
             $table->unsignedBigInteger('user_id');
-            $table->longText('image');
+            $table->longText('image')->nullable();
             $table->timestamps();
         });
     }

@@ -1,81 +1,25 @@
-.tab-content {
-    padding-left: 15px;
-    padding-right: 15px;
-    border-left: 1px solid;
-    padding-bottom: 5px;
-    border-bottom: 1px solid;
-    border-right: 1px solid;
-    border-color: #e7e8ec;
+.width {
+    &-70{
+        width: 70px !important;
+    }
 }
-
-.breadcrumb-item a {
-    color: #007bff !important;
-}
-
 .required {
     color: red !important;
 }
-
-#image {
-    &-avt {
-        border: 1px solid #e7e8ec;
-        position: relative;
-        width: 100%;
-        background-color: #fff;
-        padding: 20px 10px 20px 30px;
-        border-radius: 5px;
-        text-align: start;
-    }
-
-    &-avt::after {
-        content: "Chọn ảnh";
-        display: block;
-        height: 100%;
-        position: absolute;
-        left: 50%;
-        top: 30%;
-        bottom: 0;
-    }
-
-    &-avt::before {
-        content: "";
-        display: block;
-        height: 100%;
-        width: 1px;
-        background-color: #e7e8ec;
-        position: absolute;
-        left: 25%;
-        top: 0;
-        bottom: 0;
-    }
+.image-product{
+    width: 40% !important;
+    object-fit: cover;
+}
+.product-list {
+    list-style-type: none;
+    padding-left: 0;
 }
 
-#show-avt {
-    width: inherit;
-
-    img {
-        width: inherit;
-        height: inherit;
-        object-fit: cover;
-    }
+.product-list li::before {
+    content: " - ";
 }
-
-label {
-    width: inherit !important;
-}
-
-.group-file {
-    display: flex;
-}
-
-.col {
-    &-md {
-        &-3 {
-            flex: 0 0 auto;
-            width: 25% !important;
-        }
-    }
-}
-.image-user{
-    width: inherit !important;
+.image-category{
+    width: -webkit-fill-available !important;
+    margin-top: calc(0.375rem + var(--cui-border-width));
+    margin-bottom: calc(0.375rem + var(--cui-border-width));
 }

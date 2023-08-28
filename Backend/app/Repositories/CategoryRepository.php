@@ -3,13 +3,17 @@
 namespace App\Repositories;
 
 use App\Repositories\Support\AbstractRepository;
+use App\Traits\SaveLog;
+use App\Traits\ShopStorage;
 use Illuminate\Container\Container as App;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CategoryRepository extends AbstractRepository
 {
+    use SaveLog, ShopStorage;
+
     public function model()
     {
         return 'App\Models\Category';
@@ -20,16 +24,22 @@ class CategoryRepository extends AbstractRepository
         parent::__construct($app);
     }
 
+    /**
+     * Get list category
+     *
+     * @param Request $request
+     * @param bool $toArray
+     * @param array $with
+     * @return mixed
+     */
     public function listCategory($request, $toArray = false, $with = [])
     {
-        $orderBy      = is_null($request->get('order_by')) ? "id" : $request->get('order_by');
-        $orderArr     = explode(',', $orderBy);
-        $sortBy       = in_array($request->get('sort_by'), ['asc', 'desc']) ? $request->get('sort_by') : 'desc';
-        $searchBy     = $request->get('search_by');
-        $searchText   = $request->get('search_text');
-        $active       = $request->get('active');
-        $role         = $request->get('role');
-        $data         = $this->model::select('*')->distinct();
+        $orderBy = is_null($request->get('order_by')) ? "id" : $request->get('order_by');
+        $orderArr = explode(',', $orderBy);
+        $sortBy = in_array($request->get('sort_by'), ['asc', 'desc']) ? $request->get('sort_by') : 'desc';
+        $searchBy = $request->get('search_by');
+        $searchText = $request->get('search_text');
+        $data = $this->model::select('*')->distinct();
         if (sizeof($with) > 0) {
             $withParams = '';
             foreach ($with as $key => $value) {
@@ -45,20 +55,10 @@ class CategoryRepository extends AbstractRepository
             $data = $data->orderBy($order, $sortBy);
         }
 
-        if (!empty($role)) {
-            if (in_array((int)$role, [$this->model::ROLE_ADMIN, $this->model::ROLE_CTV])) {
-                $data = $data->where('role', '=', $role);
-            }
-        }
-
         if (!empty($searchBy)) {
-            if (in_array((int)$active, [$this->model::NO_ACTIVE, $this->model::ACTIVE])) {
-                $data = $data->where('active', '<>', $active)->where($searchBy, 'LIKE', "%$searchText%");
-            } else {
                 $data = $data->where($searchBy, 'LIKE', "%$searchText%");
-            }
         }
-
+        
         if ($toArray) {
             return $data->paginate(self::PAGE_SIZE)->getCollection()->toArray();
         }
@@ -66,28 +66,77 @@ class CategoryRepository extends AbstractRepository
         return $data->paginate(self::PAGE_SIZE);
     }
 
-    public function store($request)
+    /**
+     * Create category
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function storeCategory($request)
     {
-        $image = '';
+        $pathInfo = null;
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
-            $pathInfo = uploadFileHepler($imageFile, 'categories');
-            $image = 'storage/'.$pathInfo;
+            $pathInfo = $this->uploadFile($imageFile, 'categories');
         }
-        $datas = [
-            'name' => $request->name,
-            'slug' => createSlug($request->name),
-            'user_id' => Auth::id(),
-            'image' => $image,
-        ];
+
         $event = "Thêm mới danh mục";
-        $this->model->create($datas);
-        createLog($event,$datas);
+        $data = [
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'user_id' => Auth::guard()->user()->id,
+            'image' => $pathInfo,
+        ];
+        $this->model->create($data);
+        $this->createLog($event, $data);
     }
 
-    public function update($data, $id, $attribute = "id"){
-       
+    /**
+     * Edit category
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function updateCategory($data)
+    {
+        $id = $data['id'];
+        $category = $this->model::findOrFail($id);
+        $oldcategory = $category->getOriginal();
+        $datas = [
+            'name' => $data['name'],
+        ];
+        if (!is_null($data['image'])) {
+            $category->image ? $this->deleteFile($category->image) : '';
+            $imageFile = $data['image'];
+            $pathInfo = $this->uploadFile($imageFile, 'categories');
+            $datas['image'] = $pathInfo;
+        }
+        $category->update($datas);
+        $event = "Cập nhật danh mục";
+        $dataLog = [
+            'old' => $oldcategory,
+            'new' => $category
+        ];
+        $this->createLog($event, $dataLog);
     }
 
-   
+    /**
+     * Delete category
+     * @param $category
+     */
+    public function deleteCategory($category)
+    {
+        $event = "Xóa danh mục";
+        $dataLog = [
+            'category' => $category,
+            'relationshipOf' => $category->products()->get()->toArray()
+        ];
+        $category->products()->detach();
+        if (!is_null($category->image)) {
+            $this->deleteFile($category->image);
+        }
+        $category->delete();
+        $this->createLog($event, $dataLog);
+    }
+
 }

@@ -27,4 +27,19 @@ class Product extends Model
     ];
 
     public $timestamps = true;
+
+    //image
+    public const IMAGE_DEFAULT = 'image/product-default.jpg';
+
+    public function categories()
+    {
+      return $this->belongsToMany(Category::class, 'product_category');
+    }
+
+    public function formatPrice($price, $currency = 'đ')
+    {
+      $formattedPrice = number_format($price, 0, '.', ',');
+      return $formattedPrice.$currency;
+    }
+    
 }

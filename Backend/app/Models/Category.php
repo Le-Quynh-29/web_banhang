@@ -21,6 +21,9 @@ class Category extends Model
 
   public $timestamps = true;
 
+  //image
+  public const IMAGE_DEFAULT = 'image/category-default.png';
+
   public function customizePrefix(){
     return 'C';
   }
@@ -33,6 +36,11 @@ class Category extends Model
       return $this->belongsTo(User::class, 'user_id');
   }
 
+  public function products()
+  {
+    return $this->belongsToMany(Product::class, 'product_category');
+  }
+  
   public function formatDate($date){
     if (is_null($date)) {
         $timeFormat = null;

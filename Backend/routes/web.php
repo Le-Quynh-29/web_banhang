@@ -21,9 +21,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('content/{path}', [\App\Http\Controllers\ContentController::class, 'show'])->name('content.show');
     Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
-    Route::prefix('auth')->group(function () {
-        Route::get('/profile', [\App\Http\Controllers\UserController::class, 'profile'])->name('auth.profile');
-        Route::get('/profile/edit', [\App\Http\Controllers\UserController::class, 'editProfile'])->name('auth.profile.edit');
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [\App\Http\Controllers\UserController::class, 'profile'])->name('profile.index');
+        Route::get('/edit', [\App\Http\Controllers\UserController::class, 'editProfile'])->name('profile.edit');
+        Route::get('/change-password', [\App\Http\Controllers\UserController::class, 'changePassword'])->name('profile.change.password');
     });
 
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');

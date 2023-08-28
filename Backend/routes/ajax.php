@@ -20,13 +20,23 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::post('validator/unique', [\App\Http\Controllers\Ajax\BaseController::class, 'validateUnique'])
+    Route::post('/validator/unique', [\App\Http\Controllers\Ajax\BaseController::class, 'validateUnique'])
         ->name('ajax.validate.unique');
+    Route::get('/autocomplete', [\App\Http\Controllers\Ajax\BaseController::class, 'autocomplete'])
+        ->name('ajax.autocomplete');
+
     Route::prefix('user')->group(function () {
-        Route::get('/autocomplete', [\App\Http\Controllers\Ajax\UserController::class, 'autocomplete'])
-            ->name('ajax.user.autocomplete');
         Route::post('/update', [\App\Http\Controllers\Ajax\UserController::class, 'update'])
             ->name('ajax.user.update');
+    });
+
+    Route::prefix('profile')->group(function () {
+        Route::post('/update', [\App\Http\Controllers\Ajax\UserController::class, 'updateProfile'])
+            ->name('ajax.profile.update');
+        Route::post('/check-current-password', [\App\Http\Controllers\Ajax\UserController::class, 'checkValidateCurrentPassword'])
+            ->name('ajax.profile.check.current.password');
+        Route::post('/change-password', [\App\Http\Controllers\Ajax\UserController::class, 'changePassword'])
+            ->name('ajax.profile.change.password');
     });
 });
 

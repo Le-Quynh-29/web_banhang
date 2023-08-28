@@ -30,12 +30,12 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $role_id
+     * @param  int  $id
      */
-    public function edit($role_id) {
+    public function edit($id) {
         abort_if(! Gate::allows('pmss--permission-edit'),403);
-        $role = $this->roleRepo->find($role_id);
-        abort(is_null($role),404);
+        $role = $this->roleRepo->find($id);
+        abort_if(is_null($role),404);
         $permissions = $this->permissionRepo->getAll();
         $arr_pmss = $role->permissions()->pluck('id')->toArray();
         return view('permission/edit', compact('permissions', 'role', 'arr_pmss'));
@@ -47,10 +47,10 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      */
-    public function update(Request $request, $role_id) {
+    public function update(Request $request, $id) {
         abort_if(! Gate::allows('pmss--permission-update'),403);
-        $role = $this->roleRepo->find($role_id);
-        abort(is_null($role),404);
+        $role = $this->roleRepo->find($id);
+        abort_if(is_null($role),404);
         $permissions = $request->get('permissions');
         $role->permissions()->sync($permissions);
         toastr()->success('Cập nhật thông tin người dùng thành công.', 'Thông báo');

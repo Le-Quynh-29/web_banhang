@@ -166,37 +166,37 @@ class PermissionSeeder extends Seeder
             'id' => 27,
             'module' => 'Mã giảm giá',
             'name' => 'Danh sách mã giảm giá',
-            'slug' => 'pmss--discount-index'
+            'slug' => 'pmss--voucher-index'
         ]);
         DB::table('permissions')->insert([
             'id' => 28,
             'module' => 'Mã giảm giá',
             'name' => 'Chi tiết mã giảm giá',
-            'slug' => 'pmss--discount-detail'
+            'slug' => 'pmss--voucher-detail'
         ]);
         DB::table('permissions')->insert([
             'id' => 29,
             'module' => 'Mã giảm giá',
             'name' => 'Tạo mới mã giảm giá',
-            'slug' => 'pmss--discount-create'
+            'slug' => 'pmss--voucher-create'
         ]);
         DB::table('permissions')->insert([
             'id' => 30,
             'module' => 'Mã giảm giá',
             'name' => 'Cập nhật mã giảm giá',
-            'slug' => 'pmss--discount-update'
+            'slug' => 'pmss--voucher-update'
         ]);
         DB::table('permissions')->insert([
             'id' => 31,
             'module' => 'Mã giảm giá',
             'name' => 'Xoá mã giảm giá',
-            'slug' => 'pmss--discount-delete'
+            'slug' => 'pmss--voucher-delete'
         ]);
         DB::table('permissions')->insert([
             'id' => 32,
             'module' => 'Mã giảm giá',
             'name' => 'Danh sách mã giảm giá',
-            'slug' => 'pmss--fr-discount'
+            'slug' => 'pmss--fr-voucher'
         ]);
 
         //Đơn hàng

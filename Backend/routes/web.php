@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('user',\App\Http\Controllers\UserController::class);
     Route::resource('category',\App\Http\Controllers\CategoryController::class);
+    Route::resource('voucher',\App\Http\Controllers\VoucherController::class);
+
     Route::prefix('log')->group(function () {
         Route::get('/', [\App\Http\Controllers\LogController::class, 'index'])->name('log.index');
         Route::get('/{id}', [\App\Http\Controllers\LogController::class, 'show'])->name('log.show');

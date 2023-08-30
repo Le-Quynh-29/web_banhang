@@ -1,7 +1,9 @@
 @extends('layouts.app')
+
 @section('style')
     @vite('resources/sass/user.scss')
 @endsection
+
 @section('header')
     <div class="container-fluid header-menu">
         <nav aria-label="breadcrumb">
@@ -12,6 +14,7 @@
         </nav>
     </div>
 @endsection
+
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
@@ -96,12 +99,14 @@
                                         <input type="hidden" name="active" value="{{ $user->active == 1 ? 0 : 1 }}">
                                         @if($user->active == 1 && ($user->id != 1 && $user->id != auth()->id()))
                                             <a data-toggle="tooltip" data-coreui-placement="top"
-                                               data-coreui-title="Đã kích hoạt" class="modal-lock" data-active="{{ $user->active }}">
+                                               data-coreui-title="Đã kích hoạt" class="modal-lock"
+                                               data-active="{{ $user->active }}">
                                                 <i class="fas fa-user-unlock fa-lg mr-3 cl-green"></i>
                                             </a>
                                         @elseif($user->active == 0 && ($user->id != 1 && $user->id != auth()->id()))
                                             <a data-toggle="tooltip" data-coreui-placement="top"
-                                               data-coreui-title="Vô hiệu hóa" class="modal-lock" data-active="{{ $user->active }}">
+                                               data-coreui-title="Vô hiệu hóa" class="modal-lock"
+                                               data-active="{{ $user->active }}">
                                                 <i class="fas fa-user-lock fa-lg mr-3 cl-red"></i>
                                             </a>
                                         @endif
@@ -161,6 +166,7 @@
         @endslot
     @endcomponent
 @endsection
+
 @section('javascript')
     <script>
         window.localStorage.setItem('menu-selected', 'user');

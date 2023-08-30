@@ -19,7 +19,7 @@
                                 <i class="nav-icon fas fa-tachometer-alt-average"></i>
                                 Dashboard</a>
                         </li>
-                        @if (Gate::allows('pmss--category-index'))
+                        @if (Gate::allows('pmss--category-index') || Gate::allows('pmss--voucher-index'))
                             <li class="nav-title">Dữ liệu</li>
                         @endif
                         @if(Gate::allows('pmss--category-index'))
@@ -27,6 +27,13 @@
                                 <a class="nav-link" href="{{ route('category.index') }}" data-id="category">
                                     <i class="nav-icon far fa-list"></i>
                                     Quản lý danh mục</a>
+                            </li>
+                        @endif
+                        @if(Gate::allows('pmss--voucher-index'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('voucher.index') }}" data-id="voucher">
+                                    <i class="nav-icon fa-solid fa-tags"></i>
+                                    Quản lý mã giảm giá</a>
                             </li>
                         @endif
 

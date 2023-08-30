@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('discount');
             $table->integer('quantity');
             $table->integer('quantity_used')->default(0);
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+            $table->date('start_time');
+            $table->date('end_time');
             $table->unsignedBigInteger('user_id');
             $table->tinyInteger('status');
             $table->timestamps();

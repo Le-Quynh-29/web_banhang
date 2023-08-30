@@ -87,4 +87,14 @@ class ShopHelper
         }
         return $strPhoneNumber;
     }
+
+    /**
+     * format number
+     * @param $value
+     * @return mixed
+     */
+    public static function numberFormat($value)
+    {
+        return number_format(round($value), 0, ',', '.');
+    }
 }

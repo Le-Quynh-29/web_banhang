@@ -53,7 +53,7 @@ class PermissionController extends Controller
         abort_if(is_null($role),404);
         $permissions = $request->get('permissions');
         $role->permissions()->sync($permissions);
-        toastr()->success('Cập nhật thông tin người dùng thành công.', 'Thông báo');
+        toastr()->success('Cập nhật phân quyền thành công.', 'Thông báo');
         return redirect()->back();
     }
 }

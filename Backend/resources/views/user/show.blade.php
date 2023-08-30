@@ -1,7 +1,9 @@
 @extends('layouts.app')
+
 @section('style')
     @vite('resources/sass/user.scss')
 @endsection
+
 @section('header')
     <div class="container-fluid header-menu">
         <nav aria-label="breadcrumb">
@@ -13,6 +15,7 @@
         </nav>
     </div>
 @endsection
+
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
@@ -110,4 +113,10 @@
             <a class="btn btn-primary" href="{{ url()->previous() }}">Quay lại</a>
         </div>
     </div>
+@endsection
+
+@section('javascript')
+    <script>
+        window.localStorage.setItem('menu-selected', 'user');
+    </script>
 @endsection

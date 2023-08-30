@@ -39,6 +39,9 @@ export default defineConfig({
                 //profile
                 'resources/js/profile/edit.js',
                 'resources/js/profile/change-password.js',
+
+                //voucher
+                'resources/js/voucher/index.js',
             ],
             refresh: true,
         }),

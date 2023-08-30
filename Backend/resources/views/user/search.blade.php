@@ -7,7 +7,8 @@
             <option value="username" <?= request()->search_by == 'username' ? 'selected' : '' ?>>Tên đăng nhập</option>
             <option value="fullname" <?= request()->search_by == 'fullname' ? 'selected' : '' ?>>Tên người dùng</option>
             <option value="email" <?= request()->search_by == 'email' ? 'selected' : '' ?>>Email</option>
-            <option value="phone_number" <?= request()->search_by == 'phone_number' ? 'selected' : '' ?>>Số điện thoại
+            <option value="phone_number" <?= request()->search_by == 'phone_number' ? 'selected' : '' ?>>
+                Số điện thoại
             </option>
             <option value="role" <?= request()->search_by == 'role' ? 'selected' : '' ?>>Vai trò</option>
             <option value="active" <?= request()->search_by == 'active' ? 'selected' : '' ?>>Trạng thái</option>

@@ -32,7 +32,7 @@
                 <div class="col-12">
                     <div class="float-left">
                         <h5><span class="float-left">Tổng số: </span>&nbsp;
-                            <strong> {{$logs->total()}}</strong>
+                            <strong> {{ ShopHelper::numberFormat($logs->total()) }}</strong>
                         </h5>
                     </div>
                 </div>
@@ -64,7 +64,11 @@
                                    data-coreui-original-title="Chi tiết">{!!$log->id!!}</a>
                             </td>
                             <td class="text-break min-width-100 max-width-400">
-                                <a class="cl-blue" href="{{ route('log.show', $log->id) }}">{!!$log->event!!}</a>
+                                <a class="cl-blue"
+                                   data-toggle="tooltip"
+                                   data-coreui-placement="bottom"
+                                   data-coreui-original-title="Chi tiết"
+                                   href="{{ route('log.show', $log->id) }}">{!!$log->event!!}</a>
                             </td>
                             <td class="text-center text-break max-width-100">{!!$log->user?->username!!}</td>
                             <td class="text-break max-width-400">{!!$log->user_agent!!}</td>
